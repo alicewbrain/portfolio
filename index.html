@@ -1,0 +1,1344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>aliceWbrain</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-39 -26 78 54'><g stroke='%23f9f8f7' stroke-width='2.5' stroke-linejoin='round' stroke-linecap='round'><polygon points='-35,-5 1,0 37,-3 0,15' fill='%23aaaaaa'/><polygon points='1,-24 14,9 0,15 -13,8' fill='%23888888'/><polygon points='1,-24 -20,23 0,15' fill='%23cccccc'/><polygon points='1,-24 20,24 0,15' fill='%23b1b1b1'/><polygon points='37,-3 20,24 0,15' fill='%239c9c9c'/><polygon points='-35,-5 0,15 -20,23' fill='%23c5c5c5'/><polygon points='-20,23 20,24 0,15' fill='%23a3a3a3'/></g></svg>">
+<link rel="stylesheet" href="https://use.typekit.net/uwk2xnq.css">
+<link rel="stylesheet" href="https://use.typekit.net/xep3onb.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ── Reset ──────────────────────────────────────────────────────────── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+/* ── Tokens ─────────────────────────────────────────────────────────── */
+:root {
+  --txt:   rgb(38,38,38);
+  --txt-light: rgba(38,38,38,0.7);
+  --txt2:  rgba(38,38,38,0.65);
+  --txt3:  rgba(38,38,38,0.65);
+  --panel: #fafafa;
+  --bdr:   rgba(0,0,0,0.09);
+  --col:     28px;
+  --max:   1120px;
+  --mono:  'JetBrains Mono', 'Courier New', monospace;
+  --head:  'Google Sans', 'Inter', 'neue-haas-grotesk-text', Helvetica, Arial, sans-serif;
+  --body:  'Google Sans', 'Inter', 'neue-haas-grotesk-text', Helvetica, Arial, sans-serif;
+}
+
+/* ── Text Selection ────────────────────────────────────────────── */
+::selection {
+  background: rgb(38,38,38);
+  color: #f9f8f7;
+}
+::-moz-selection {
+  background: rgb(38,38,38);
+  color: #f9f8f7;
+}
+
+/* ── Email Copy Tooltip ────────────────────────────────────────── */
+.email-tooltip {
+  position: absolute;
+  left: calc(100% + 8px);
+  top: 50%;
+  transform: translateY(calc(-50% + 4px));
+  background: rgba(218, 218, 216, 0.75);
+  color: rgb(38,38,38);
+  font-family: var(--mono);
+  font-size: 14px;
+  font-weight: 700;
+  padding: 6px 18px;
+  border-radius: 100px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+}
+.nav-dropdown-email:hover + .email-tooltip,
+.footer-email:hover + .email-tooltip {
+  opacity: 1;
+  transform: translateY(-50%);
+}
+
+/* ── Back to Top ───────────────────────────────────────────────── */
+.back-to-top {
+  font-family: var(--mono) !important;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--txt);
+  text-decoration: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.back-to-top-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px; height: 32px;
+  background: rgba(218, 218, 216, 0.75);
+  color: rgb(38,38,38);
+  border-radius: 100px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(4px);
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+}
+.back-to-top:hover .back-to-top-arrow {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Base ─────────────────────────────────────────────────────────── */
+body {
+  background: #efedeb;
+  color: var(--txt);
+  font-family: var(--body);
+  font-size: 16px;
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+*, *::before, *::after { box-sizing: border-box; }
+a { color: inherit; text-decoration: none; }
+p { color: var(--txt) !important; }
+.hero-eyebrow { color: rgb(153,153,153) !important; }
+.footer-cta { color: rgb(153,153,153) !important; }
+.nav-dropdown-cta { color: rgb(153,153,153) !important; }
+li { color: var(--txt) !important; }
+
+/* 內文超連結：預設無底線黑字，hover 有底線 */
+p a { 
+  color: var(--txt) !important; 
+  text-decoration: none;
+}
+p a:hover {
+  color: var(--txt) !important;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
+/* Source 超連結：預設深灰無底線，hover 黑色有底線 */
+.source-list {
+  list-style: none;
+  padding-left: 0;
+}
+.source-list li {
+  margin-bottom: 1.2em;
+  line-height: 1.575;
+}
+.source-list a {
+  color: var(--txt) !important;
+  text-decoration: none;
+}
+.source-list a:hover {
+  color: var(--txt) !important;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+a:hover {
+  text-decoration: underline;
+  text-decoration-color: rgb(38,38,38);
+  text-underline-offset: 3px;
+}
+
+/* ── Wave SVG — fixed background, same as portfolio-wave-bg.html ── */
+#wave-canvas {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  overflow: visible;
+}
+
+/* ── NAV ──────────────────────────────────────────────────────────── */
+#nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 20;
+  display: flex; align-items: flex-start; justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 0 var(--col);
+  background: transparent;
+  transition: background .3s ease;
+}
+#nav.scrolled { background: #f9f8f7; }
+#nav.menu-open { background: #f9f8f7; }
+.nav-logo, .nav-links, .nav-burger { height: 64px; display: flex; align-items: center; }
+.nav-burger { align-self: center; }
+
+.nav-logo {
+  font-family: var(--mono); font-weight: 700; font-size: 1rem;
+  letter-spacing: .04em; color: var(--txt); text-decoration: none;
+}
+.nav-logo:hover { text-decoration: none; }
+.nav-links { display: flex; gap: 28px; list-style: none; }
+.nav-links a {
+  font-family: var(--mono); font-size: 1rem;
+  font-weight: 600; letter-spacing: .04em;
+  color: var(--txt); text-decoration: none; transition: color .2s;
+  text-transform: none;
+}
+/* ── Menu overlay backdrop ──────────────────────────────────────── */
+.nav-overlay {
+  position: fixed; inset: 0;
+  background: #efedeb;
+  z-index: 11;
+  opacity: 0; pointer-events: none;
+  transition: opacity .4s cubic-bezier(.4,0,.2,1);
+}
+.nav-overlay.open { opacity: 1; pointer-events: all; }
+.nav-burger {
+  display: none;
+  flex-direction: column; justify-content: center; gap: 5px;
+  background: none; border: none; cursor: pointer;
+  padding: 4px; width: 32px; height: 32px;
+}
+.nav-burger span {
+  display: block; width: 100%; height: 1.5px;
+  background: var(--txt);
+  transition: transform .3s, opacity .3s;
+  transform-origin: center;
+}
+.nav-burger.open span:nth-child(1) { transform: translateY(3.25px) rotate(45deg); }
+.nav-burger.open span:nth-child(2) { transform: translateY(-3.25px) rotate(-45deg); }
+
+/* ── Mobile dropdown ────────────────────────────────────────────── */
+.nav-dropdown {
+  width: 100%;
+  background: transparent;
+  max-height: 0; overflow: hidden;
+  transition: max-height .4s cubic-bezier(.4,0,.2,1);
+}
+.nav-dropdown.open { max-height: 500px; }
+.nav-dropdown-links {
+  list-style: none;
+  padding: 16px var(--col) 24px;
+}
+.nav-dropdown-links li { border: none; }
+.nav-dropdown-links a {
+  display: block;
+  font-family: var(--mono); font-size: 1rem; font-weight: 700;
+  color: var(--txt); text-decoration: none;
+  padding: 14px 0;
+  
+  transition: opacity .2s;
+}
+.nav-dropdown-links a:hover { text-decoration: underline; text-decoration-color: var(--txt); text-underline-offset: 3px; }
+
+@media (max-width: 1024px) {
+  .nav-links { display: none; }
+  .nav-burger { display: flex; }
+}
+
+.nav-dropdown-footer {
+  padding: 20px var(--col) 32px;
+}
+.nav-dropdown-cta {
+  font-family: var(--head); font-size: 1.25rem; font-weight: 500;
+  color: rgb(153,153,153); margin-bottom: 15px;
+}
+.nav-dropdown-email {
+  font-family: var(--mono); font-size: 1rem; font-weight: 700;
+  color: var(--txt); text-decoration: none;
+  transition: opacity .2s;
+}
+.nav-dropdown-email:hover {
+  text-decoration: underline;
+  text-decoration-color: var(--txt);
+  text-underline-offset: 3px;
+}
+.nav-links a:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
+/* ── HERO ──────────────────────────────────────────────────────── */
+#hero {
+  position: relative; z-index: 1;
+  min-height: 92vh;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 0;
+}
+.hero-inner { width: 100%; }
+.hero-eyebrow {
+  font-family: var(--head); 
+  font-size: clamp(2rem, 3.6vw, 5.04rem);
+  font-weight: 500; line-height: 0.96; letter-spacing: 0;
+  color: rgb(153,153,153);
+  display: flex; flex-direction: column; gap: 0;
+  margin-bottom: 0;
+}
+.hero-h1 {
+  font-family: var(--head); 
+  font-size: clamp(2rem, 3.6vw, 5.04rem);
+  font-weight: 500; line-height: 0.95; letter-spacing: 0;
+  color: var(--txt); margin-bottom: 0.32em;
+}
+
+/* ── WHITE PANEL — one continuous surface ──────────────────────── */
+#panel {
+  position: relative; z-index: 1;
+  background: #f9f8f7;
+}
+
+/* ── FOOTER — outside panel, wave visible through it ───────────── */
+#footer {
+  position: relative; z-index: 1;
+  background: transparent;
+  border-top: none;
+  padding: 180px var(--col) 25px;
+}
+
+/* ── Layout helpers ─────────────────────────────────────────────── */
+.w { max-width: var(--max); margin: 0 auto; padding: 0 var(--col); }
+.sec { padding: clamp(80px, 8vw, 120px) 0; }
+/* 2× padding overrides — only on these two specific spots */
+#work { padding-top: clamp(160px, 16vw, 168px); }
+#about { padding-bottom: clamp(160px, 16vw, 240px); }
+.two-col {
+  display: block;
+}
+.two-col .lbl { margin-bottom: 7px; }
+
+/* ── Typography ─────────────────────────────────────────────────── */
+.sec-label {
+  font-family: var(--head); font-size: clamp(1.125rem, 2vw, 1.375rem); font-weight: 400;
+  color: rgb(153,153,153) !important; letter-spacing: 0.02028em;
+  margin-bottom: 14px; line-height: 1.1;
+}
+.h2 {
+  font-family: var(--head);
+  font-size: 1.625rem;
+  font-weight: 500; letter-spacing: -0.00784em; line-height: 1.0;
+  color: var(--txt); margin-bottom: 36px;
+}
+.body-l {
+  font-size: 1.125rem; line-height: 1.625; color: var(--txt);
+  margin-bottom: 1.5em;
+}
+.body-l:last-child { margin-bottom: 0; }
+
+/* ── Video ──────────────────────────────────────────────────────── */
+.video-wrap {
+  position: relative; padding-bottom: 56.25%;
+  margin: 52px 0 0; background: #111;
+  overflow: hidden; border-radius: 15px;
+}
+.video-wrap iframe {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;
+}
+
+/* ── Feature cards ──────────────────────────────────────────────── */
+.cards {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 50px 29px; margin-top: 64px;
+  align-items: stretch;
+}
+.card {
+  padding: 30px 25px;
+  border: 1px solid var(--txt);
+  border-radius: 15px;
+  display: flex; flex-direction: column;
+  min-height: 14em;
+}
+.card:nth-child(3) { grid-column: 1; }
+.card-title {
+  font-family: var(--head); font-size: clamp(1.375rem, 3vw, 1.625rem); font-weight: 500;
+  letter-spacing: -0.00392em; line-height: 1.3;
+  color: var(--txt); margin-bottom: 10px;
+}
+.card-body {
+  font-family: var(--body); font-size: 0.97rem;
+  line-height: 1.625; color: var(--txt);
+}
+
+/* ── Essay intro ─────────────────────────────────────────────────── */
+.essay-lead {
+  font-family: var(--body); font-size: 1rem;
+  font-weight: 400; line-height: 1.4; letter-spacing: 0;
+  color: var(--txt); max-width: none; margin-bottom: 1.5em;
+}
+/* ── Boat grid ──────────────────────────────────────────────────── */
+/* ── Boat section ───────────────────────────────────────────────── */
+.boat-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 29px;
+}
+.boat-col {
+  display: flex; flex-direction: column; gap: 14px;
+}
+.boat-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 48vh;
+  gap: 32px;
+}
+.bpanel {
+  position: relative; overflow: hidden;
+  display: block; text-decoration: none; background: #1a1a1a;
+  border-radius: 15px;
+  height: calc(50vh + 5px);
+  transition: transform 0.25s ease-out;
+}
+.bpanel:hover { 
+  text-decoration: none;
+  transform: translateY(-4px);
+}
+.boat-strip-simple {
+  transition: transform 0.25s ease-out;
+}
+.boat-strip-simple:hover {
+  transform: translateY(-4px);
+}
+.bpanel canvas { position: absolute; inset: 0; width: 100% !important; height: 100% !important; display: block; }
+.bpanel::after { display: none; }
+
+/* Hover: white title text gets underline (only the title span, not the #N) */
+.bpanel:hover .bpanel-overlay > span:not(.bpanel-overlay-part),
+.boat-strip-simple:hover > .boat-strip-title {
+  text-decoration: underline;
+  text-decoration-color: currentColor;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1.5px;
+}
+
+.bpanel-overlay {
+  position: absolute; bottom: 35px; left: 25px; right: 25px;
+  z-index: 2;
+  display: flex; flex-direction: column; align-items: flex-start;
+  gap: 10px;
+  font-family: var(--head); font-size: clamp(1.375rem, 3vw, 1.625rem); font-weight: 500;
+  letter-spacing: -0.00392em; line-height: 0.95;
+  color: rgba(249,248,247,0.9);
+  pointer-events: none;
+}
+.bpanel-overlay-part {
+  color: rgba(249,248,247,0.5);
+  font-size: 1rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+/* Arrow button — bpanel (desktop hover-only) and boat-strip (mobile always-on) */
+.boat-arrow {
+  position: absolute;
+  right: 25px;
+  top: 50%;
+  transform: translateY(calc(-50% + 4px));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(218, 218, 216, 0.75);
+  color: rgb(38,38,38);
+  padding: 6px;
+  border-radius: 100px;
+  z-index: 3;
+  pointer-events: none;
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+}
+/* Desktop bpanel: hover-only, slides up into place */
+.bpanel .boat-arrow { opacity: 0; }
+.bpanel:hover .boat-arrow { 
+  opacity: 1;
+  transform: translateY(-50%);
+}
+/* Mobile strip: always visible */
+.boat-strip-simple .boat-arrow { opacity: 1; }
+.boat-btn {
+  display: block; text-decoration: none;
+  font-family: var(--body); font-size: 0.9rem;
+  font-weight: 400; color: var(--txt); line-height: 1.4;
+  transition: opacity .2s;
+}
+.boat-btn:hover { text-decoration: underline; text-decoration-color: var(--txt); text-underline-offset: 3px; }
+.boat-btn-part { color: var(--txt3); }
+
+/* Mobile strip — col 2 & 3 on small screens */
+.boat-strip {
+  display: none;
+  text-decoration: none;
+  background: #1a1a1a;
+  border-radius: 12px;
+  padding: 18px 20px;
+  color: rgba(249,248,247,0.9);
+  font-family: var(--head); font-size: clamp(1.02rem, 2.125vw, 1.445rem); font-weight: 500;
+  letter-spacing: -0.00392em; line-height: 0.845;
+  align-items: center; justify-content: space-between;
+}
+.boat-strip-part { color: rgba(249,248,247,0.5); flex-shrink: 0; }
+/* Mobile: col 2 & 3 bpanel becomes dark strip */
+.boat-strip {
+  display: none;
+}
+.furucombo-link { color: var(--txt); text-decoration: none; font-weight: 600; padding: 0 4px; transition: color .2s; }
+.furucombo-link:hover { text-decoration: underline; text-decoration-color: var(--txt); text-underline-offset: 3px; }
+
+/* ── About ──────────────────────────────────────────────────────── */
+.about-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 29px; align-items: start; }
+.about-photo { width: 100%; aspect-ratio: 4/5; background: #d0d0d0; overflow: hidden; border-radius: 15px; }
+.about-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.about-name {
+  font-family: var(--head); font-size: clamp(1.2rem, 2.5vw, 2.1rem);
+  font-weight: 500; letter-spacing: -0.008624em; line-height: 1.2;
+  color: var(--txt); margin-top: 12px; margin-bottom: 0;
+}
+.interests { list-style: none; margin-top: 0; }
+.interests li {
+  font-size: 1rem; color: var(--txt);
+  line-height: 1.4; padding: 0;
+  border: none;
+}
+
+
+/* ── Source Links ───────────────────────────────────────────────── */
+.source-links { margin-top: 48px; }
+.source-label {
+  font-family: var(--head); font-size: clamp(1.02rem, 2.125vw, 1.445rem) !important; font-weight: 500;
+  letter-spacing: -0.00392em; line-height: 1.3;
+  color: var(--txt) !important; margin-bottom: 12px;
+}
+.source-list { list-style: none; }
+.source-list li { margin-bottom: 20px; line-height: 1.625; }
+.source-list a {
+  font-family: var(--body); font-size: 1rem; line-height: 1;
+  color: var(--txt); text-decoration: none;
+  transition: color .2s;
+}
+.source-list a:hover {
+  text-decoration: underline;
+  text-decoration-color: var(--txt);
+  text-underline-offset: 3px;
+}
+.ext-arrow {
+  display: inline-block;
+  width: 0.85em; height: 0.85em;
+  vertical-align: middle;
+  position: relative; top: -0.1em;
+  margin-left: 3px;
+  flex-shrink: 0;
+}
+
+
+.footer-inner {
+  max-width: var(--max); margin: 0 auto;
+  display: grid; 
+  grid-template-columns: 1fr; 
+  gap: clamp(40px, 4vw, 50px); 
+  align-items: end;
+}
+.footer-cta {
+  font-family: var(--head); font-size: 1.25rem; font-weight: 500;
+  color: rgb(153,153,153); margin-bottom: 15px;
+}
+.footer-email {
+  font-family: var(--mono) !important; font-size: 1rem; font-weight: 700;
+  color: var(--txt); text-decoration: none;
+  transition: opacity .2s;
+}
+.footer-email:hover { 
+  text-decoration: underline;
+  text-decoration-color: var(--txt);
+  text-underline-offset: 3px;
+}
+.footer-meta { text-align: left; margin-top: 0.5em !important; }
+.footer-disclaimer { font-size: 10px; color: #cfcfcd; line-height: 1; }
+.footer-copy { font-size: 10px; color: #cfcfcd; line-height: 1; margin-top: 12px; }
+
+/* ── Responsive ─────────────────────────────────────────────────── */
+@media (min-width: 768px) {
+  .hero-h1, .hero-eyebrow { font-size: 2.5rem; }
+  .h2 { font-size: 2rem; }
+}
+@media (min-width: 1024px) {
+  .hero-h1, .hero-eyebrow { font-size: 3.25rem; }
+  .h2 { font-size: 2.625rem; }
+}
+/* h3 shrink at boat-section 3-col layout breakpoint (901+) */
+@media (min-width: 901px) {
+  .card-title,
+  .bpanel-overlay,
+  .boat-strip-simple { font-size: 1.375rem; }
+}
+/* About — tablet 50/50 (768-1023) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .about-grid { grid-template-columns: 1fr 1fr; gap: 0 40px; }
+}
+/* About — desktop (≥1024): photo = 1/3 = same width as boat panel, text spans rest */
+@media (min-width: 1024px) {
+  .about-grid > div:last-child { grid-column: span 2; }
+}
+/* About — mobile stack (below 768) */
+@media (max-width: 767px) {
+  .about-grid { grid-template-columns: 1fr; gap: 36px; }
+  /* Footer: stack only when truly out of room (small phones) */
+  #footer .footer-inner > div:first-child {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 80px;
+  }
+}
+
+/* ── Touch devices: no hover capability ─────────────────────── */
+@media (hover: none) {
+  /* Email (footer + nav dropdown): always underlined (no hover on touch) */
+  .footer-email,
+  .nav-dropdown-email { 
+    text-decoration: underline !important;
+    text-decoration-color: var(--txt) !important;
+    text-underline-offset: 3px !important;
+  }
+  /* Hide Copy tooltips — mailto opens email app instead */
+  #footer-email-tooltip,
+  #nav-email-tooltip { display: none; }
+  /* Back to top arrow always visible — reset slide-up offset */
+  .back-to-top-arrow { 
+    opacity: 1;
+    transform: translateY(0);
+  }
+  /* Boat arrows always visible on touch — reset to centered position */
+  .boat-strip-simple .boat-arrow,
+  .boat-col-1 .bpanel .boat-arrow {
+    transform: translateY(-50%);
+  }
+}
+
+@media (max-width: 900px) {
+  :root { --col: 28px; }
+  .cards { grid-template-columns: 1fr; gap: 17px; }
+  .card:nth-child(3) { grid-column: auto; }
+  .card { min-height: 0; }
+  .footer-inner { grid-template-columns: 1fr; }
+  .footer-meta { text-align: left; }
+  .footer-disclaimer { max-width: none; }
+  .boat-section { grid-template-columns: 1fr; gap: 17px; }
+  .bpanel-desktop { display: none; }
+  .boat-btn-desktop { display: none; }
+  
+  /* Mobile: col 1 keeps animation, col 2-3 become simple strips */
+  .boat-col-1 .bpanel { display: block; }
+  .boat-col-2 .bpanel,
+  .boat-col-3 .bpanel { display: none !important; }
+  /* Mobile: arrow always visible on col 1 bpanel (no hover on touch) */
+  .boat-col-1 .bpanel .boat-arrow { opacity: 1; }
+  /* Mobile strip: arrow stays at 20px right (matches strip's 20px padding) */
+  .boat-strip-simple .boat-arrow { right: 20px; }
+  .boat-strip-simple { 
+    display: flex !important;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    background: #1a1a1a;
+    border-radius: 12px;
+    padding: 24px 20px 35px 20px;
+    color: rgba(249,248,247,0.9);
+    font-family: var(--head); 
+    font-size: clamp(1.375rem, 3vw, 1.625rem); 
+    font-weight: 500;
+    letter-spacing: -0.00392em; 
+    line-height: 0.95;
+    text-decoration: none;
+    position: relative;
+  }
+  .boat-strip-simple .boat-strip-part {
+    color: rgba(249,248,247,0.5);
+    font-size: 1rem;
+    line-height: 1;
+  }
+  
+  .boat-labels { grid-template-columns: 1fr; gap: 12px 0; }
+  .sec { padding: clamp(60px, 6vw, 80px) 0; }
+  section.sec[style*="padding-top:125px"] { padding-top: 83px !important; }
+  /* 2× padding overrides — mobile values */
+  #work { padding-top: clamp(120px, 12vw, 160px); }
+  #about { padding-bottom: clamp(120px, 12vw, 160px); }
+}
+@media (max-width: 640px) {
+}
+@media (min-width: 901px) {
+  :root {
+    --col:     min(48px, 4vw);
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- Wave background — identical to portfolio-wave-bg.html -->
+<canvas id="wave-canvas"></canvas>
+
+<!-- Nav -->
+<nav id="nav">
+  <a href="/" class="nav-logo">aliceWbrain</a>
+  <ul class="nav-links">
+    <li><a href="#essay">Essay</a></li>
+    <li><a href="https://linkedin.com/in/yourprofile" target="_blank" rel="noopener">LinkedIn</a></li>
+    <li><a href="https://x.com/yourhandle" target="_blank" rel="noopener">X/Twitter</a></li>
+  </ul>
+  <button class="nav-burger" id="nav-burger" aria-label="Menu" aria-expanded="false">
+    <span></span><span></span>
+  </button>
+
+  <!-- Mobile dropdown inside nav — seamless background -->
+  <div class="nav-dropdown" id="nav-dropdown">
+    <ul class="nav-dropdown-links">
+      <li><a href="#essay">Essay</a></li>
+      <li><a href="https://linkedin.com/in/yourprofile" target="_blank" rel="noopener">LinkedIn</a></li>
+      <li><a href="https://x.com/yourhandle" target="_blank" rel="noopener">X/Twitter</a></li>
+    </ul>
+    <div class="nav-dropdown-footer">
+      <p class="nav-dropdown-cta">Driven by the deep.</p>
+      <div style="position: relative; display: inline-block;">
+        <a href="#contact" class="nav-dropdown-email" id="nav-contact-email">alicewbrain@gmail.com</a>
+        <span class="email-tooltip" id="nav-email-tooltip">Copy</span>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="nav-overlay" id="nav-overlay"><canvas id="nav-wave-canvas" style="position:fixed;bottom:0;left:0;width:100%;height:60%;pointer-events:none;"></canvas></div>
+<section id="hero">
+  <div class="w hero-inner">
+    <h1 class="hero-h1">Making Complexity Understandable.</h1>
+    <p class="hero-eyebrow">
+      <span>Engineering depth.</span>
+      <span>Product structure.</span>
+      <span>Human intuition.</span>
+    </p>
+  </div>
+</section>
+
+<!-- White panel — everything below hero -->
+<div id="panel">
+
+  <!-- ② Furucombo -->
+  <section id="work" class="sec">
+    <div class="w">
+      <div class="two-col">
+        <div class="lbl"><p class="sec-label">Design an abstract model</p></div>
+        <div>
+          <h2 class="h2">Designing Composable DeFi Strategies: Furucombo</h2>
+
+          <p class="body-l">In the Web3, the DeFi protocol <a href="https://furucombo.app" target="_blank" rel="noopener" class="furucombo-link">Furucombo<svg class="ext-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" width="1em" height="1em" fill="currentColor"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h560v-280h80v280q0 33-23.5 56.5T760-120H200Zm188-212-56-56 372-372H560v-80h280v280h-80v-144L388-332Z"/></svg></a> restructures fragmented multi-protocol operations into a visual composable system, allowing complex workflows to be constructed intuitively and executed within a single transaction.</p>
+          <p class="body-l">While DeFi is highly capable, most strategies are still script-based or executed through disconnected transactions. This persists simply because the interaction model has not evolved over the years.</p>
+          <p class="body-l">At Furucombo, which launched in 2020, I approached this problem by turning DeFi operations into composable visualization actions. Each protocol action, such as Swap, Borrow, or Liquidity Provision, is represented as a visualization. Users can connect these actions to construct a strategy, and the system executes the entire sequence as a single transaction on-chain.</p>
+
+          <div class="video-wrap">
+            <iframe id="furucombo-video"
+              data-src="https://www.youtube.com/embed/WbEBNymcteA?autoplay=1&mute=1&loop=1&playlist=WbEBNymcteA&controls=1&rel=0"
+              title="Furucombo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+          <p style="font-size:1rem; color:var(--txt3); margin-top:0.875rem; margin-bottom:60px; line-height:1.5; text-align:center; font-style:italic;">Furucombo showcase by prominent Web3 channel The Defiant</p>
+
+          <p class="body-l">At first glance, this may appear to be a visual interface problem. In reality, the challenge lies much deeper in defining a usable abstraction. The difficulty was not simply designing the interface but shaping an abstraction that could support many possible strategy combinations while remaining predictable for users.</p>
+          <p class="body-l">As the sole designer on the product, I worked closely with engineers to develop this interaction model from the ground up; the engineers and I collaborated to define the structure of the system itself.</p>
+          <p class="body-l">Once this model was established, new behaviors became possible. Complex strategies could be visually composed and understood, allowing them to be shared and reproduced. This empowered non-engineers to construct operations that previously required writing scripts.</p>
+          <p class="body-l">Today, the product has processed tens of billions of dollars in on-chain transaction volume and completed a seed funding round. More importantly, it demonstrates a shift in how DeFi interactions can be structured, moving from isolated operations to composable strategy design.</p>
+
+          <div class="cards">
+            <div class="card">
+              <h3 class="card-title">Scalable Architecture</h3>
+              <p class="card-body">Defined a robust abstraction layer that balances system complexity with flexibility, establishing a programmable framework for seamless platform expansion.</p>
+            </div>
+            <div class="card">
+              <h3 class="card-title">Visual Composability</h3>
+              <p class="card-body">Transforms complex DeFi actions into intuitive Blocks, making strategy building as easy as stacking Legos, accessible to non-engineers.</p>
+            </div>
+            <div class="card">
+              <h3 class="card-title">Proven Market Impact</h3>
+              <p class="card-body">Lowers the barrier for no-code strategy, resulting in billions in volume and successful seed funding.</p>
+            </div>
+          </div>
+
+          <div class="two-col" style="margin-top: clamp(80px, 8vw, 120px);">
+            <div class="lbl"><h3 class="source-label" style="font-size: clamp(1.02rem, 2.125vw, 1.445rem) !important; font-weight: 500 !important; color: rgb(38,38,38) !important;">Source</h3></div>
+            <div>
+              <ul class="source-list">
+                <li><a href="https://www.furucombo.app" target="_blank" rel="noopener">Furucombo website<svg class="ext-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" width="1em" height="1em" fill="currentColor"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h560v-280h80v280q0 33-23.5 56.5T760-120H200Zm188-212-56-56 372-372H560v-80h280v280h-80v-144L388-332Z"/></svg></a></li>
+                <li><a href="https://x.com/furucombo" target="_blank" rel="noopener">Furucombo X/Twitter<svg class="ext-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" width="1em" height="1em" fill="currentColor"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h560v-280h80v280q0 33-23.5 56.5T760-120H200Zm188-212-56-56 372-372H560v-80h280v280h-80v-144L388-332Z"/></svg></a></li>
+                <li><a href="https://www.binance.com/en/blog/all/421499824684901561" target="_blank" rel="noopener">Binance X Invests in Decentralized Finance Aggregator Furucombo<svg class="ext-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" width="1em" height="1em" fill="currentColor"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h560v-280h80v280q0 33-23.5 56.5T760-120H200Zm188-212-56-56 372-372H560v-80h280v280h-80v-144L388-332Z"/></svg></a></li>
+                <li><a href="https://youtu.be/0HEudgDEVWs?si=FHw3VHjg-lx4XqdQ" target="_blank" rel="noopener">The Defiant — Create all kinds of DeFi Combinations with Furucombo<svg class="ext-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" width="1em" height="1em" fill="currentColor"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h560v-280h80v280q0 33-23.5 56.5T760-120H200Zm188-212-56-56 372-372H560v-80h280v280h-80v-144L388-332Z"/></svg></a></li>
+                <li><a href="https://www.youtube.com/live/XhhMnWC9ba4?si=s43iWsrHDaA7tE7f" target="_blank" rel="noopener">EthCC[4] Livestream 7 — Chu Hsuan-Ting : How aggregator will bring DeFi to the next 10Billion?<svg class="ext-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" width="1em" height="1em" fill="currentColor"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h560v-280h80v280q0 33-23.5 56.5T760-120H200Zm188-212-56-56 372-372H560v-80h280v280h-80v-144L388-332Z"/></svg></a></li>
+                <li><a href="https://www.youtube.com/live/lX1HYg8yKKA?si=PsMjaIKVMyXLTCbJ" target="_blank" rel="noopener">EthCC[5] Livestream 3 — Hsuan-Ting Chu : How will composability disrupt Wall Street?<svg class="ext-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" width="1em" height="1em" fill="currentColor"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h560v-280h80v280q0 33-23.5 56.5T760-120H200Zm188-212-56-56 372-372H560v-80h280v280h-80v-144L388-332Z"/></svg></a></li>
+                <li><a href="https://medium.com/aave/aave-x-gitcoin-hackathon-highlights-2057dc777803" target="_blank" rel="noopener">Aave x Gitcoin Hackathon Highlights<svg class="ext-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" width="1em" height="1em" fill="currentColor"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h560v-280h80v280q0 33-23.5 56.5T760-120H200Zm188-212-56-56 372-372H560v-80h280v280h-80v-144L388-332Z"/></svg></a></li>
+                <li><a href="https://www.bnext.com.tw/article/86369/dinngo-defi-furucombo" target="_blank" rel="noopener">Business Next — Making DeFi as Simple as International Travel: How Furucombo Built the "KKday of Blockchain" in 9 Years<svg class="ext-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" width="1em" height="1em" fill="currentColor"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h560v-280h80v280q0 33-23.5 56.5T760-120H200Zm188-212-56-56 372-372H560v-80h280v280h-80v-144L388-332Z"/></svg></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ④ Essay -->
+  <section id="essay" class="sec">
+    <div class="w">
+      <div class="two-col">
+        <div class="lbl"><p class="sec-label">Essay</p></div>
+        <div>
+          <h2 class="h2">Designing for Complexity: A Trilogy</h2>
+          <p class="essay-lead" style="margin-bottom: 3em !important;">Design is the interface between human cognition and system complexity. Systems can become increasingly complex, but people cannot.</p>
+
+          <div class="boat-section">
+            <!-- Col 1: animation with overlay text, no button below on desktop -->
+            <div class="boat-col boat-col-1">
+              <a class="bpanel" href="#article-1">
+                <canvas id="bc1"></canvas>
+                <div class="bpanel-overlay"><span class="bpanel-overlay-part">#1</span><span>Complexity Management</span></div>
+                <span class="boat-arrow" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" width="20" height="20" fill="currentColor"><path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z"/></svg></span>
+              </a>
+            </div>
+            <!-- Col 2 -->
+            <div class="boat-col boat-col-2">
+              <a class="bpanel bpanel-desktop" href="#article-2">
+                <canvas id="bc2"></canvas>
+                <div class="bpanel-overlay"><span class="bpanel-overlay-part">#2</span><span>Human Interface</span></div>
+                <span class="boat-arrow" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" width="20" height="20" fill="currentColor"><path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z"/></svg></span>
+              </a>
+              <a class="boat-strip boat-strip-simple" href="#article-2"><span class="boat-strip-part">#2</span><span class="boat-strip-title">Human Interface</span><span class="boat-arrow" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" width="20" height="20" fill="currentColor"><path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z"/></svg></span></a>
+            </div>
+            <!-- Col 3 -->
+            <div class="boat-col boat-col-3">
+              <a class="bpanel bpanel-desktop" href="#article-3">
+                <canvas id="bc3"></canvas>
+                <div class="bpanel-overlay"><span class="bpanel-overlay-part">#3</span><span>Moving Complexity</span></div>
+                <span class="boat-arrow" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" width="20" height="20" fill="currentColor"><path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z"/></svg></span>
+              </a>
+              <a class="boat-strip boat-strip-simple" href="#article-3"><span class="boat-strip-part">#3</span><span class="boat-strip-title">Moving Complexity</span><span class="boat-arrow" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" width="20" height="20" fill="currentColor"><path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z"/></svg></span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ⑤ About -->
+  <section id="about" class="sec" style="padding-top:125px">
+    <div class="w">
+      <div class="two-col">
+        <div class="lbl">
+          <p class="sec-label">About</p>
+        </div>
+        <div>
+          <h2 class="h2">The Brain Behind the Complexity: Alice</h2>
+          <div class="about-grid">
+            <div class="about-photo"><img src="pic_alice.jpg" alt="Alice"></div>
+            <div>
+              <p class="body-l">A Product Designer specializing in complex systems where technical infrastructure meets human workflows. By focusing on interaction models and system-level design, I transform intricate complexity into products that are both accessible and highly functional.</p>
+              <p class="body-l">Currently open to new opportunities in Taipei and remote.</p>
+              <p class="body-l">I'm particularly interested in complex systems, financial infrastructure, developer platforms, and emerging technologies.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /#panel -->
+
+<!-- ⑥ Footer — outside white panel, wave visible here -->
+<footer id="footer">
+    <div class="footer-inner">
+      <div style="display: flex; justify-content: space-between; align-items: flex-end;">
+        <div>
+          <p class="footer-cta" style="color: rgb(153,153,153); font-size: 1.25rem; font-weight: 500; margin-bottom: 15px;">Driven by the deep.</p>
+          <div style="position: relative; display: inline-block;">
+            <a href="#contact" class="footer-email" id="contact-email" style="font-family: 'JetBrains Mono', 'Courier New', monospace !important; font-size: 1rem; font-weight: 700;">alicewbrain [at] gmail.com</a>
+            <span class="email-tooltip" id="footer-email-tooltip">Copy</span>
+          </div>
+        </div>
+        <div style="position: relative; display: inline-block;">
+          <a href="#top" class="back-to-top" id="back-to-top" style="font-family: 'JetBrains Mono', 'Courier New', monospace !important; font-size: 1rem; font-weight: 700;"><span class="back-to-top-text">Back to top</span><span class="back-to-top-arrow" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" width="20" height="20" fill="currentColor"><path d="M440-160v-487L216-423l-56-57 320-320 320 320-56 57-224-224v487h-80Z"/></svg></span></a>
+        </div>
+      </div>
+      <div class="footer-meta" style="margin-top: 4em;">
+        <p class="footer-disclaimer" style="color: #cfcfcd !important; font-size: 12px; line-height: 1.2;">This work reflects personal perspectives and design thinking. All examples are based on publicly available information or generalized abstractions. No confidential or proprietary information is disclosed.</p>
+        <p class="footer-copy" style="color: #cfcfcd !important; font-size: 12px; line-height: 1.2;">&#169; 2026 aliceWbrain</p>
+      </div>
+    </div>
+  </footer>
+<script>
+// ── NAV OVERLAY WAVE ───────────────────────────────────────────────
+(function () {
+  const cv = document.getElementById('nav-wave-canvas');
+  if (!cv) return;
+  const ctx = cv.getContext('2d');
+  let W = 0, H = 0, menuFrac = 0.45;
+
+  const wSpecs = [
+    { yF:.45, aF:.003, wF:.40, seed:1.14, op:.10, s1:1.60, s2:2.20 },
+    { yF:.36, aF:.004, wF:.46, seed:5.31, op:.14, s1:2.80, s2:4.20 },
+    { yF:.43, aF:.006, wF:.53, seed:2.73, op:.19, s1:1.20, s2:1.80 },
+    { yF:.52, aF:.009, wF:.61, seed:0.49, op:.26, s1:3.80, s2:5.60 },
+    { yF:.63, aF:.013, wF:.70, seed:3.91, op:.34, s1:2.20, s2:3.20 },
+    { yF:.77, aF:.018, wF:.81, seed:7.23, op:.28, s1:1.40, s2:2.40 },
+    { yF:.90, aF:.022, wF:.93, seed:4.27, op:.20, s1:1.80, s2:2.80 },
+  ];
+  const SCROLL_SPEED = 0.018;
+
+  function updateMenuFrac() {}
+
+  function resize() {
+    const dpr = window.devicePixelRatio || 1;
+    W = window.innerWidth; H = cv.offsetHeight;
+    cv.width = W * dpr; cv.height = H * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  resize();
+  window.addEventListener('resize', () => { resize(); updateMenuFrac(); });
+
+  const burger = document.getElementById('nav-burger');
+  if (burger) burger.addEventListener('click', () => setTimeout(updateMenuFrac, 450));
+
+  let t0 = null;
+  function frame(ts) {
+    if (!t0) t0 = ts;
+    const t = (ts - t0) / 1000;
+    ctx.clearRect(0, 0, W, H);
+
+    for (const s of wSpecs) {
+      const amp = H * s.aF, wl = W * s.wF;
+      const range = H * 0.80;
+      const scrollOffset = (t * SCROLL_SPEED * H) % range;
+      const baseY = H * 0.20 + ((H * (s.yF - 0.20) + scrollOffset) % range);
+      const tPos = baseY / H;
+      if (tPos > 1.0) continue;
+
+      const perspective = Math.max(0, (tPos - 0.20) / 0.80);
+      const pAmp = H * s.aF * (0.01 + perspective * perspective * 0.99);
+      ctx.lineWidth = 0.15 + perspective * perspective * 2.5;
+      
+      // 螢幕 20%~85% 透明度 0→1.0, 85%~100% 保持 1.0
+      // tPos: -0.333=螢幕20%, 0=螢幕40%, 0.75=螢幕85%, 1.0=螢幕100%
+      const fadeOp = tPos < 0.75
+        ? Math.max(0, (tPos + 0.333) / 1.083)
+        : 1.0;
+      if (fadeOp < 0.01) continue;
+
+      ctx.globalAlpha = fadeOp;
+      ctx.strokeStyle = 'rgba(249,248,247,1)';
+      ctx.lineCap = 'round';
+      const pts = [];
+      for (let x = -10; x <= W + 10; x += 8) {
+        pts.push([x, baseY
+          + Math.sin((x/wl)*Math.PI*2 + s.seed + t*s.s1)*pAmp
+          + Math.sin((x/wl)*Math.PI*2*1.61 + s.seed*1.3 + t*s.s2)*pAmp*.30]);
+      }
+      ctx.beginPath(); ctx.moveTo(pts[0][0], pts[0][1]);
+      for (let i = 1; i < pts.length - 1; i++) {
+        ctx.quadraticCurveTo(pts[i][0], pts[i][1],
+          (pts[i][0]+pts[i+1][0])/2, (pts[i][1]+pts[i+1][1])/2);
+      }
+      ctx.stroke();
+    }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+
+// ── BURGER MENU ────────────────────────────────────────────────────
+(function () {
+  const burger   = document.getElementById('nav-burger');
+  const dropdown = document.getElementById('nav-dropdown');
+  const overlay  = document.getElementById('nav-overlay');
+  const navEl    = document.getElementById('nav');
+  if (!burger || !dropdown) return;
+
+  const navEmail = document.getElementById('nav-contact-email');
+  if (navEmail) {
+    const addr = 'alicewbrain' + '\u0040' + 'gmail.com';
+    navEmail.textContent = addr;
+    navEmail.href = 'mailto:' + addr;
+  }
+
+  function closeMenu() {
+    dropdown.classList.remove('open');
+    burger.classList.remove('open');
+    burger.setAttribute('aria-expanded', false);
+    navEl.classList.remove('menu-open');
+    if (overlay) overlay.classList.remove('open');
+  }
+
+  burger.addEventListener('click', () => {
+    const open = dropdown.classList.toggle('open');
+    burger.classList.toggle('open', open);
+    burger.setAttribute('aria-expanded', open);
+    navEl.classList.toggle('menu-open', open);
+    if (overlay) overlay.classList.toggle('open', open);
+  });
+
+  if (overlay) overlay.addEventListener('click', closeMenu);
+
+  dropdown.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', closeMenu);
+  });
+})();
+
+// ── VIDEO autoplay on scroll ───────────────────────────────────────
+(function () {
+  const iframe = document.getElementById('furucombo-video');
+  if (!iframe) return;
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !iframe.src) {
+        iframe.src = iframe.dataset.src;
+      }
+    });
+  }, { threshold: 0.4 });
+  observer.observe(iframe);
+})();
+
+// ── NAV scroll behaviour ───────────────────────────────────────────
+(function () {
+  const nav = document.getElementById('nav');
+  const hero = document.getElementById('hero');
+  let ticking = false;
+  
+  function update() {
+    const heroBottom = hero.offsetTop + hero.offsetHeight;
+    const scrollY = window.scrollY;
+    
+    if (scrollY > heroBottom) {
+      nav.classList.add('scrolled');
+    } else {
+      nav.classList.remove('scrolled');
+    }
+    ticking = false;
+  }
+  
+  window.addEventListener('scroll', () => {
+    if (!ticking) { requestAnimationFrame(update); ticking = true; }
+  }, { passive: true });
+  
+  // Initial check
+  update();
+})();
+
+// ── Email link ────────────────────────────────────────────────────
+// ── EMAIL COPY FUNCTIONALITY ───────────────────────────────────────
+(function () {
+  const addr = 'alicewbrain' + '\u0040' + 'gmail.com';
+  
+  // Setup email elements
+  const emails = [
+    { el: document.getElementById('contact-email'), tooltip: document.getElementById('footer-email-tooltip') },
+    { el: document.getElementById('nav-contact-email'), tooltip: document.getElementById('nav-email-tooltip') }
+  ];
+  
+  emails.forEach(({ el, tooltip }) => {
+    if (!el || !tooltip) return;
+    
+    el.href = 'mailto:' + addr;
+    el.textContent = addr;
+    
+    // Skip hover effects on touch devices — they would override CSS underline
+    const isTouch = window.matchMedia('(hover: none)').matches;
+    
+    if (!isTouch) {
+      // Hover underline effect (desktop only)
+      el.addEventListener('mouseenter', function() {
+        el.style.textDecoration = 'underline';
+        el.style.textDecorationColor = 'rgb(38,38,38)';
+        el.style.textUnderlineOffset = '3px';
+      });
+      el.addEventListener('mouseleave', function() {
+        el.style.textDecoration = 'none';
+      });
+    }
+    
+    // Copy to clipboard on click (desktop only — touch devices use native mailto)
+    el.addEventListener('click', function(e) {
+      // Touch device: don't preventDefault, let mailto: open the email app
+      if (window.matchMedia('(hover: none)').matches) return;
+      
+      e.preventDefault();
+      navigator.clipboard.writeText(addr).then(() => {
+        tooltip.textContent = 'Copied';
+        tooltip.style.opacity = '1';
+        setTimeout(() => {
+          tooltip.textContent = 'Copy';
+          tooltip.style.opacity = '';
+        }, 2000);
+      });
+    });
+  });
+})();
+
+// ── BACK TO TOP ────────────────────────────────────────────────────
+(function () {
+  const backToTop = document.getElementById('back-to-top');
+  if (backToTop) {
+    // Hover underline effect
+    backToTop.addEventListener('mouseenter', function() {
+      backToTop.style.textDecoration = 'underline';
+      backToTop.style.textDecorationColor = 'rgb(38,38,38)';
+      backToTop.style.textUnderlineOffset = '3px';
+    });
+    backToTop.addEventListener('mouseleave', function() {
+      backToTop.style.textDecoration = 'none';
+    });
+    
+    // Scroll to top on click
+    backToTop.addEventListener('click', function(e) {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+})();
+
+// ── WAVE BACKGROUND (canvas, boat-panel style) ─────────────────────
+(function () {
+  const cv  = document.getElementById('wave-canvas');
+  const ctx = cv.getContext('2d');
+  let W = 0, H = 0;
+
+  // yF spacing: dense at top (far), sparse at bottom (near) — perspective
+  const wSpecs = [
+    { yF:.45, aF:.003, wF:.40, seed:1.14, op:.10, s1:1.60, s2:2.20 },
+    { yF:.36, aF:.004, wF:.46, seed:5.31, op:.14, s1:2.80, s2:4.20 },
+    { yF:.43, aF:.006, wF:.53, seed:2.73, op:.19, s1:1.20, s2:1.80 },
+    { yF:.52, aF:.009, wF:.61, seed:0.49, op:.26, s1:3.80, s2:5.60 },
+    { yF:.63, aF:.013, wF:.70, seed:3.91, op:.34, s1:2.20, s2:3.20 },
+    { yF:.77, aF:.018, wF:.81, seed:7.23, op:.28, s1:1.40, s2:2.40 },
+    { yF:.90, aF:.022, wF:.93, seed:4.27, op:.20, s1:1.80, s2:2.80 },
+  ];
+  // Downward scroll speed (fraction of H per second)
+  const SCROLL_SPEED = 0.018;
+
+  function resize() {
+    const dpr = window.devicePixelRatio || 1;
+    W = window.innerWidth; H = window.innerHeight;
+    cv.width  = W * dpr; cv.height = H * dpr;
+    cv.style.width  = W + 'px'; cv.style.height = H + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  let t0 = null;
+  function frame(ts) {
+    if (!t0) t0 = ts;
+    const t = (ts - t0) / 1000;
+
+    ctx.clearRect(0, 0, W, H);
+
+    for (const s of wSpecs) {
+      const amp = H * s.aF, wl = W * s.wF;
+      // downward scroll within 30%~100% range, loops back to 30%
+      const range = H * 0.55; // 30% to 100%
+      const scrollOffset = (t * SCROLL_SPEED * H) % range;
+      const baseY = H * 0.45 + ((H * (s.yF - 0.45) + scrollOffset) % range);
+      // fade out near bottom
+      const tPos = baseY / H;
+      if (tPos > 1.0) continue;
+
+      // Perspective: closer to bottom = larger amp, deeper color
+      const perspective = Math.max(0, (tPos - 0.45) / 0.55); // 0 at top, 1 at bottom
+      const pAmp = H * s.aF * (0.01 + perspective * perspective * 0.99);
+      ctx.lineWidth = 0.15 + perspective * perspective * 2.5;      const fadeOp = tPos > 0.85
+        ? s.op * (1 - (tPos - 0.85) / 0.15)
+        : s.op * (0.06 + perspective * 0.94);
+      if (fadeOp < 0.01) continue;
+
+      ctx.strokeStyle = 'rgba(249,248,247,1)';
+      ctx.lineCap = 'round';
+      const pts = [];
+      for (let x = -10; x <= W + 10; x += 8) {
+        pts.push([x, baseY
+          + Math.sin((x/wl)*Math.PI*2 + s.seed + t*s.s1)*pAmp
+          + Math.sin((x/wl)*Math.PI*2*1.61 + s.seed*1.3 + t*s.s2)*pAmp*.30]);
+      }
+      ctx.beginPath(); ctx.moveTo(pts[0][0], pts[0][1]);
+      for (let i = 1; i < pts.length - 1; i++) {
+        ctx.quadraticCurveTo(pts[i][0], pts[i][1],
+          (pts[i][0]+pts[i+1][0])/2, (pts[i][1]+pts[i+1][1])/2);
+      }
+      ctx.stroke();
+    }
+
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+
+// ── BOAT PANELS ───────────────────────────────────────────────────
+// One continuous scene: boat travels left→right across all 3 canvases.
+(function () {
+  const IDS    = ['bc1','bc2','bc3'];
+  const CYCLE  = 54;
+  const canvases = IDS.map(id => document.getElementById(id)).filter(Boolean);
+  if (!canvases.length) return;
+
+  function resizeAll() {
+    const dpr = window.devicePixelRatio || 1;
+    canvases.forEach(cv => {
+      const r = cv.parentElement.getBoundingClientRect();
+      const cw = Math.round(r.width), ch = Math.round(r.height);
+      if (cw < 4 || ch < 4) return;
+      cv.width = cw * dpr; cv.height = ch * dpr;
+      cv._cw = cw; cv._ch = ch;
+    });
+  }
+  resizeAll();
+  const ro = new ResizeObserver(resizeAll);
+  canvases.forEach(cv => ro.observe(cv.parentElement));
+
+  const wSpecs = [
+    { yF:.18, aF:.004, wF:.45, seed:1.14, op:.12, s1:1.60, s2:2.20 },
+    { yF:.24, aF:.005, wF:.50, seed:5.31, op:.16, s1:2.80, s2:4.20 },
+    { yF:.31, aF:.007, wF:.56, seed:2.73, op:.22, s1:1.20, s2:1.80 },
+    { yF:.40, aF:.011, wF:.64, seed:0.49, op:.32, s1:3.80, s2:5.60 },
+    { yF:.55, aF:.017, wF:.75, seed:3.91, op:.46, s1:2.20, s2:3.20 },
+    { yF:.76, aF:.026, wF:.92, seed:4.27, op:.58, s1:1.40, s2:2.40 },
+  ];
+  const BOAT_W = 2;
+
+  // ── Wave drawing ───────────────────────────────────
+  function drawWaves(ctx, W, H, panelOffsetX, t) {
+    for (const s of wSpecs) {
+      const amp = H * s.aF, wl = W * s.wF, baseY = H * s.yF;
+      ctx.strokeStyle = 'rgba(249,248,247,' + s.op + ')';
+      ctx.lineWidth = 0.9; ctx.lineCap = 'round';
+      const pts = [];
+      for (let x = -10; x <= W + 10; x += 8) {
+        pts.push([x, baseY
+          + Math.sin((x/wl)*Math.PI*2 + s.seed + t*s.s1)*amp
+          + Math.sin((x/wl)*Math.PI*2*1.61 + s.seed*1.3 + t*s.s2)*amp*.30]);
+      }
+      ctx.beginPath(); ctx.moveTo(pts[0][0], pts[0][1]);
+      for (let i = 1; i < pts.length - 1; i++) {
+        ctx.quadraticCurveTo(pts[i][0], pts[i][1],
+          (pts[i][0]+pts[i+1][0])/2, (pts[i][1]+pts[i+1][1])/2);
+      }
+      ctx.stroke();
+    }
+  }
+
+  // ── Wave Y at local x ──────────────────────────────
+  function waveY(x, H, spec, t) {
+    const wl = H * spec.wF, amp = H * spec.aF, baseY = H * spec.yF;
+    return baseY
+      + Math.sin((x/wl)*Math.PI*2 + spec.seed + t*.55)*amp
+      + Math.sin((x/wl)*Math.PI*2*1.61 + spec.seed*1.3 + t*.82)*amp*.30;
+  }
+
+  // ── Paper boat ─────────────────────────────────────
+  function drawBoat(ctx, x, y, angle, sc) {
+    ctx.save();
+    ctx.translate(x, y); ctx.rotate(angle); ctx.scale(sc, sc);
+    ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+    function panel(pts, fillA) {
+      ctx.beginPath();
+      ctx.moveTo(pts[0][0], pts[0][1]);
+      for (let i = 1; i < pts.length; i++) ctx.lineTo(pts[i][0], pts[i][1]);
+      ctx.closePath();
+      ctx.fillStyle = 'rgba(249,248,247,' + fillA + ')';
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(249,248,247,0.65)';
+      ctx.lineWidth = 1.1;
+      ctx.stroke();
+    }
+    panel([[-44,-4],[1,0],[46,-2],[0,12]], 0.30);
+    panel([[1,-19],[17,7],[0,12],[-16,6]], 0.22);
+    panel([[1,-19],[-25,18],[0,12]], 0.58);
+    panel([[1,-19],[25,19],[0,12]], 0.40);
+    panel([[46,-2],[25,19],[0,12]], 0.48);
+    panel([[-44,-4],[0,12],[-25,18]], 0.70);
+    panel([[-25,18],[25,19],[0,12]], 0.35);
+    ctx.restore();
+  }
+
+  // ── Draw one panel ─────────────────────────────────
+  function drawPanel(cv, panelIndex, t) {
+    const dpr = window.devicePixelRatio || 1;
+    const ctx = cv.getContext('2d');
+    const W = cv._cw || (cv.width/dpr);
+    const H = cv._ch || (cv.height/dpr);
+    const renderH = window.innerHeight * 0.40; // locked to original 40vh
+    if (W < 4 || H < 4) return;
+
+    const GRID_GAP = 32;
+    const sceneW = canvases.reduce((sum, c) => sum + (c._cw || W), 0)
+                 + GRID_GAP * (canvases.length - 1);
+    const panelOffsetX = canvases.slice(0, panelIndex).reduce((sum, c) => {
+      return sum + (c._cw || W) + GRID_GAP;
+    }, 0);
+
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.fillStyle = '#1c1c1c';
+    ctx.fillRect(0, 0, W, H);
+
+    // 1. Water base mask
+    const sp = wSpecs[BOAT_W];
+    const wlm = W * sp.wF, ampm = renderH * sp.aF, bym = renderH * sp.yF;
+    function maskY(x) {
+      return bym
+        + Math.sin((x/wlm)*Math.PI*2 + sp.seed + t*.55)*ampm
+        + Math.sin((x/wlm)*Math.PI*2*1.61 + sp.seed*1.3 + t*.82)*ampm*.30;
+    }
+    ctx.save();
+    ctx.beginPath(); ctx.moveTo(-10, H + 2);
+    for (let px = -10; px <= W + 10; px += 12) ctx.lineTo(px, maskY(px));
+    ctx.lineTo(W + 10, H + 2); ctx.closePath();
+    ctx.fillStyle = 'rgba(20,22,25,0.72)'; ctx.fill();
+    ctx.restore();
+
+    // 2. Wave lines on top
+    drawWaves(ctx, W, renderH, panelOffsetX, t);
+
+    // 3. Boat
+    const bW = 74 * (renderH/280);
+    const isMobile = window.innerWidth <= 900;
+    const speed = sceneW / CYCLE; // px per second (desktop reference)
+    const effectiveCycle = isMobile
+      ? (W + 2*bW) / speed  // same px/s speed, shorter distance
+      : CYCLE;
+    const phase = (t / effectiveCycle) % 1;
+    const boatSceneX = isMobile
+      ? -bW + phase * (W + 2*bW)
+      : -bW + phase * (sceneW + 2*bW);
+    const boatLocalX = boatSceneX - (isMobile ? 0 : panelOffsetX);
+
+    if (boatLocalX > -bW * 2 && boatLocalX < W + bW * 2) {
+      const sc = renderH / 280;
+      const bob = Math.sin(t * 1.4) * 1.2 * sc;
+      const bY  = maskY(boatLocalX) - 14 * sc + bob;
+      const slope = (maskY(boatLocalX + 8) - maskY(boatLocalX - 8)) / 16;
+      const pitch = Math.atan(slope) * 0.35 + Math.sin(t * 1.4 + 0.4) * 0.02;
+
+      // Clip to waterline
+      ctx.save();
+      ctx.beginPath(); ctx.moveTo(-10, -2);
+      for (let px = -10; px <= W + 10; px += 8) ctx.lineTo(px, maskY(px));
+      ctx.lineTo(W + 10, -2); ctx.closePath();
+      ctx.clip();
+
+      ctx.globalAlpha = 1;
+      drawBoat(ctx, boatLocalX, bY, pitch, sc);
+      ctx.restore();
+    }
+  }
+
+  let t0 = null;
+  function bFrame(ts) {
+    if (!t0) t0 = ts;
+    const t = (ts - t0) / 1000;
+    canvases.forEach((cv, i) => drawPanel(cv, i, t));
+    requestAnimationFrame(bFrame);
+  }
+  requestAnimationFrame(bFrame);
+})();
+</script>
+</body>
+</html>
