@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#000000">
 <title>aliceWbrain</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-39 -26 78 54'><g stroke='%23f9f8f7' stroke-width='2.5' stroke-linejoin='round' stroke-linecap='round'><polygon points='-35,-5 1,0 37,-3 0,15' fill='%23aaaaaa'/><polygon points='1,-24 14,9 0,15 -13,8' fill='%23888888'/><polygon points='1,-24 -20,23 0,15' fill='%23cccccc'/><polygon points='1,-24 20,24 0,15' fill='%23b1b1b1'/><polygon points='37,-3 20,24 0,15' fill='%239c9c9c'/><polygon points='-35,-5 0,15 -20,23' fill='%23c5c5c5'/><polygon points='-20,23 20,24 0,15' fill='%23a3a3a3'/></g></svg>">
 <link rel="stylesheet" href="https://use.typekit.net/uwk2xnq.css">
@@ -333,8 +334,15 @@ a:hover {
 /* ── Video ──────────────────────────────────────────────────────── */
 .video-wrap {
   position: relative; padding-bottom: 56.25%;
-  margin: 52px 0 0; background: #111;
+  margin: 52px 0 0;
+  background: linear-gradient(90deg, #e5e3e1 25%, #f0eeec 50%, #e5e3e1 75%);
+  background-size: 200% 100%;
+  animation: video-skeleton-shimmer 1.5s infinite linear;
   overflow: hidden; border-radius: 15px;
+}
+@keyframes video-skeleton-shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
 }
 .video-wrap iframe {
   position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;
@@ -533,7 +541,6 @@ a:hover {
 
 
 .footer-inner {
-  max-width: var(--max); margin: 0 auto;
   display: grid; 
   grid-template-columns: 1fr; 
   gap: clamp(40px, 4vw, 50px); 
@@ -672,6 +679,135 @@ a:hover {
     --col:     min(48px, 4vw);
   }
 }
+
+/* ═══════════════════════════════════════════════════════════════════ */
+/* ── ESSAY PAGE — article reading layout ──────────────────────────── */
+/* ═══════════════════════════════════════════════════════════════════ */
+
+/* Lighter solid background for article main content — wave only shows in footer */
+.article-hero,
+.article-cover-section,
+.article-body {
+  background: #f9f8f7;
+  position: relative;
+  z-index: 1;
+}
+
+/* Article hero: date + title (no nav stretch) */
+.article-hero {
+  padding-top: clamp(120px, 14vw, 200px);
+  padding-bottom: clamp(40px, 5vw, 64px);
+}
+/* Date — same look as homepage section labels */
+.article-date {
+  font-family: var(--head);
+  font-size: clamp(1.125rem, 2vw, 1.375rem);
+  font-weight: 400;
+  color: rgb(153,153,153) !important;
+  letter-spacing: 0.02028em;
+  line-height: 1.1;
+  margin-bottom: 24px;
+}
+.article-title {
+  /* same scale as hero-h1 */
+  font-family: var(--head);
+  font-size: clamp(2rem, 3.6vw, 5.04rem);
+  font-weight: 500; letter-spacing: -0.00784em; line-height: 1.05;
+  color: var(--txt);
+}
+
+/* Cover panel — same look as #1 boat panel, but full width */
+.article-cover {
+  position: relative; overflow: hidden;
+  display: block; background: #1a1a1a;
+  border-radius: 15px;
+  height: calc(50vh + 5px);
+}
+.article-cover canvas {
+  position: absolute; inset: 0;
+  width: 100% !important; height: 100% !important;
+  display: block;
+}
+/* Spacing from cover to first section title — applied as padding so bg fills the gap */
+.article-cover-section {
+  padding-bottom: clamp(24px, 3vw, 48px);
+}
+
+/* Article body — main padding-top halved from .sec default */
+.article-body {
+  padding-top: clamp(40px, 4vw, 60px);
+  padding-bottom: clamp(80px, 10vw, 160px);
+}
+.article-section {
+  scroll-margin-top: 96px; /* anchor offset for fixed nav */
+  /* Section-to-section spacing — matches homepage two-section gap rhythm */
+  margin-bottom: clamp(160px, 16vw, 240px);
+}
+.article-section:last-child { margin-bottom: 0; }
+.article-section-title {
+  /* same look as homepage .h2 */
+  font-family: var(--head);
+  font-size: 1.625rem;
+  font-weight: 500;
+  letter-spacing: -0.00784em;
+  line-height: 1.1;
+  color: var(--txt);
+  margin-bottom: 36px;
+}
+.article-section .body-l + .body-l { margin-top: 0; }
+
+/* Sticky right-side TOC */
+.article-toc {
+  position: fixed;
+  right: 48px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 5;
+  list-style: none;
+  display: none; /* hidden by default */
+}
+.article-toc li {
+  margin-bottom: 16px;
+}
+.article-toc li:last-child { margin-bottom: 0; }
+.article-toc a {
+  font-family: var(--head);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: rgb(153,153,153);
+  text-decoration: none;
+  transition: color 0.2s ease-out;
+  display: inline-block;
+}
+.article-toc a:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.article-toc a.active {
+  color: var(--txt);
+}
+.article-toc .toc-label { display: none; }
+
+/* TOC visibility tiers:
+   1200-1439: show short version (#1/#2/#3 only)
+   ≥1440 (≈ 15"+): show full version (#1 + label) */
+@media (min-width: 1200px) {
+  .article-toc { display: block; }
+}
+@media (min-width: 1440px) {
+  .article-toc .toc-label { display: inline; }
+}
+
+/* Article tablet/desktop typography align with site */
+@media (min-width: 768px) {
+  .article-title { font-size: 2.5rem; }
+  .article-section-title { font-size: 2rem; }
+}
+@media (min-width: 1024px) {
+  .article-title { font-size: 3.25rem; }
+  .article-section-title { font-size: 2.625rem; }
+}
+
 </style>
 </head>
 <body>
@@ -683,9 +819,9 @@ a:hover {
 <nav id="nav">
   <a href="/" class="nav-logo">aliceWbrain</a>
   <ul class="nav-links">
-    <li><a href="#essay">Essay</a></li>
-    <li><a href="https://linkedin.com/in/yourprofile" target="_blank" rel="noopener">LinkedIn</a></li>
-    <li><a href="https://x.com/yourhandle" target="_blank" rel="noopener">X/Twitter</a></li>
+    <li><a href="essay.html">Essay</a></li>
+    <li><a href="https://www.linkedin.com/in/alice-w-315b6310a" target="_blank" rel="noopener">LinkedIn</a></li>
+    <li><a href="https://x.com/alicewbrain" target="_blank" rel="noopener">X/Twitter</a></li>
   </ul>
   <button class="nav-burger" id="nav-burger" aria-label="Menu" aria-expanded="false">
     <span></span><span></span>
@@ -694,9 +830,9 @@ a:hover {
   <!-- Mobile dropdown inside nav — seamless background -->
   <div class="nav-dropdown" id="nav-dropdown">
     <ul class="nav-dropdown-links">
-      <li><a href="#essay">Essay</a></li>
-      <li><a href="https://linkedin.com/in/yourprofile" target="_blank" rel="noopener">LinkedIn</a></li>
-      <li><a href="https://x.com/yourhandle" target="_blank" rel="noopener">X/Twitter</a></li>
+      <li><a href="essay.html">Essay</a></li>
+      <li><a href="https://www.linkedin.com/in/alice-w-315b6310a" target="_blank" rel="noopener">LinkedIn</a></li>
+      <li><a href="https://x.com/alicewbrain" target="_blank" rel="noopener">X/Twitter</a></li>
     </ul>
     <div class="nav-dropdown-footer">
       <p class="nav-dropdown-cta">Driven by the deep.</p>
@@ -710,11 +846,9 @@ a:hover {
 <div class="nav-overlay" id="nav-overlay"><canvas id="nav-wave-canvas" style="position:fixed;bottom:0;left:0;width:100%;height:60%;pointer-events:none;"></canvas></div>
 <section id="hero">
   <div class="w hero-inner">
-    <h1 class="hero-h1">Making Complexity Understandable.</h1>
+    <h1 class="hero-h1">Making complexity understandable through product design.</h1>
     <p class="hero-eyebrow">
-      <span>Engineering depth.</span>
-      <span>Product structure.</span>
-      <span>Human intuition.</span>
+      <span>Ex-sole designer at Furucombo who shaped early composable DeFi experiences.</span>
     </p>
   </div>
 </section>
@@ -749,15 +883,15 @@ a:hover {
           <div class="cards">
             <div class="card">
               <h3 class="card-title">Scalable Architecture</h3>
-              <p class="card-body">Defined a robust abstraction layer that balances system complexity with flexibility, establishing a programmable framework for seamless platform expansion.</p>
+              <p class="card-body">Defined a robust abstraction layer balancing complexity and flexibility. This programmable framework enables seamless expansion, supporting infinite transaction paths with precision and a design system adaptable to any protocol.</p>
             </div>
             <div class="card">
               <h3 class="card-title">Visual Composability</h3>
-              <p class="card-body">Transforms complex DeFi actions into intuitive Blocks, making strategy building as easy as stacking Legos, accessible to non-engineers.</p>
+              <p class="card-body">Transforms complex DeFi actions into intuitive Blocks, making strategy building as easy as stacking Legos. Accessible to non-engineers, this lowers the barrier for no-code strategies and shapes early composable DeFi experiences.</p>
             </div>
             <div class="card">
               <h3 class="card-title">Proven Market Impact</h3>
-              <p class="card-body">Lowers the barrier for no-code strategy, resulting in billions in volume and successful seed funding.</p>
+              <p class="card-body">Since its 2021 seed round backed by Tier 1 VCs including Multicoin Capital, Binance Labs, Defiance Capital, 1kx, SevenX Ventures, and Aave founder Stani Kulechov, the platform has driven billions in volume.</p>
             </div>
           </div>
 
@@ -793,7 +927,7 @@ a:hover {
           <div class="boat-section">
             <!-- Col 1: animation with overlay text, no button below on desktop -->
             <div class="boat-col boat-col-1">
-              <a class="bpanel" href="#article-1">
+              <a class="bpanel" href="essay.html">
                 <canvas id="bc1"></canvas>
                 <div class="bpanel-overlay"><span class="bpanel-overlay-part">#1</span><span>Complexity Management</span></div>
                 <span class="boat-arrow" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" width="20" height="20" fill="currentColor"><path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z"/></svg></span>
@@ -801,21 +935,21 @@ a:hover {
             </div>
             <!-- Col 2 -->
             <div class="boat-col boat-col-2">
-              <a class="bpanel bpanel-desktop" href="#article-2">
+              <a class="bpanel bpanel-desktop" href="essay.html#article-2">
                 <canvas id="bc2"></canvas>
                 <div class="bpanel-overlay"><span class="bpanel-overlay-part">#2</span><span>Human Interface</span></div>
                 <span class="boat-arrow" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" width="20" height="20" fill="currentColor"><path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z"/></svg></span>
               </a>
-              <a class="boat-strip boat-strip-simple" href="#article-2"><span class="boat-strip-part">#2</span><span class="boat-strip-title">Human Interface</span><span class="boat-arrow" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" width="20" height="20" fill="currentColor"><path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z"/></svg></span></a>
+              <a class="boat-strip boat-strip-simple" href="essay.html#article-2"><span class="boat-strip-part">#2</span><span class="boat-strip-title">Human Interface</span><span class="boat-arrow" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" width="20" height="20" fill="currentColor"><path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z"/></svg></span></a>
             </div>
             <!-- Col 3 -->
             <div class="boat-col boat-col-3">
-              <a class="bpanel bpanel-desktop" href="#article-3">
+              <a class="bpanel bpanel-desktop" href="essay.html#article-3">
                 <canvas id="bc3"></canvas>
                 <div class="bpanel-overlay"><span class="bpanel-overlay-part">#3</span><span>Moving Complexity</span></div>
                 <span class="boat-arrow" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" width="20" height="20" fill="currentColor"><path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z"/></svg></span>
               </a>
-              <a class="boat-strip boat-strip-simple" href="#article-3"><span class="boat-strip-part">#3</span><span class="boat-strip-title">Moving Complexity</span><span class="boat-arrow" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" width="20" height="20" fill="currentColor"><path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z"/></svg></span></a>
+              <a class="boat-strip boat-strip-simple" href="essay.html#article-3"><span class="boat-strip-part">#3</span><span class="boat-strip-title">Moving Complexity</span><span class="boat-arrow" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" width="20" height="20" fill="currentColor"><path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z"/></svg></span></a>
             </div>
           </div>
         </div>
@@ -837,7 +971,7 @@ a:hover {
             <div>
               <p class="body-l">A Product Designer specializing in complex systems where technical infrastructure meets human workflows. By focusing on interaction models and system-level design, I transform intricate complexity into products that are both accessible and highly functional.</p>
               <p class="body-l">Currently open to new opportunities in Taipei and remote.</p>
-              <p class="body-l">I'm particularly interested in complex systems, financial infrastructure, developer platforms, and emerging technologies.</p>
+              <p class="body-l">I'm interested in complex systems, AI application, Web3 application, Fintech, infrastructure, developer platforms, and emerging technologies, focusing on products where usability patterns have not yet been established.</p>
             </div>
           </div>
         </div>
@@ -1006,10 +1140,13 @@ a:hover {
   let ticking = false;
   
   function update() {
-    const heroBottom = hero.offsetTop + hero.offsetHeight;
+    // On essay page (no #hero), use a fixed threshold instead
+    const threshold = hero
+      ? hero.offsetTop + hero.offsetHeight
+      : 80;
     const scrollY = window.scrollY;
     
-    if (scrollY > heroBottom) {
+    if (scrollY > threshold) {
       nav.classList.add('scrolled');
     } else {
       nav.classList.remove('scrolled');
@@ -1173,12 +1310,22 @@ a:hover {
 })();
 
 // ── BOAT PANELS ───────────────────────────────────────────────────
-// One continuous scene: boat travels left→right across all 3 canvases.
+// Looks for boat panel canvases on the page (homepage uses bc1/bc2/bc3 across 3 cols;
+// essay page uses essay-cover-canvas as a single wide cover). Each canvas runs its
+// own boat loop independently.
 (function () {
-  const IDS    = ['bc1','bc2','bc3'];
+  // Homepage: 3 canvases, boat travels across all 3
+  const homeIDs = ['bc1','bc2','bc3'];
+  const homeCanvases = homeIDs.map(id => document.getElementById(id)).filter(Boolean);
+  
+  // Essay cover: standalone single canvas — boat loops across just this one
+  const coverCanvas = document.getElementById('essay-cover-canvas');
+  
+  if (!homeCanvases.length && !coverCanvas) return;
+  
+  // Decide which set of canvases to drive in this loop
+  const canvases = homeCanvases.length ? homeCanvases : [coverCanvas];
   const CYCLE  = 54;
-  const canvases = IDS.map(id => document.getElementById(id)).filter(Boolean);
-  if (!canvases.length) return;
 
   function resizeAll() {
     const dpr = window.devicePixelRatio || 1;
@@ -1339,6 +1486,54 @@ a:hover {
   }
   requestAnimationFrame(bFrame);
 })();
+
+// ── ARTICLE TOC SCROLL SPY (essay page only) ───────────────────────
+// Highlights the current section in the right-side TOC and smooth-scrolls
+// when a TOC link is clicked. No-op if .article-toc is not on the page.
+(function () {
+  const toc = document.getElementById('article-toc');
+  if (!toc) return;
+  const links = toc.querySelectorAll('a[data-target]');
+  const sections = [...links].map(a => document.getElementById(a.dataset.target)).filter(Boolean);
+  if (!sections.length) return;
+
+  // Smooth scroll on click (the browser default is fine because of html { scroll-behavior: smooth }
+  // but we still preventDefault when JS-driven scroll is desired; keep default for now since
+  // CSS scroll-margin-top handles the offset).
+
+  // Highlight section currently in viewport
+  function setActive(id) {
+    links.forEach(a => {
+      a.classList.toggle('active', a.dataset.target === id);
+    });
+  }
+
+  // Use IntersectionObserver to track which section's H2 area is most visible.
+  // rootMargin pulls the trigger zone toward the upper third of viewport so
+  // the active state changes as the section header reaches that area.
+  const observer = new IntersectionObserver((entries) => {
+    // Find the entry that's most visible in the trigger zone
+    const visible = entries
+      .filter(e => e.isIntersecting)
+      .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+    if (visible.length) {
+      setActive(visible[0].target.id);
+    }
+  }, {
+    // Trigger zone: top 30% to top 70% of viewport
+    rootMargin: '-30% 0px -50% 0px',
+    threshold: [0, 0.25, 0.5, 0.75, 1]
+  });
+
+  sections.forEach(s => observer.observe(s));
+
+  // On page load, highlight the section matching the URL hash (if any),
+  // otherwise the first section
+  const initialHash = window.location.hash.slice(1);
+  const initialId = sections.find(s => s.id === initialHash)?.id || sections[0].id;
+  setActive(initialId);
+})();
+
 </script>
 </body>
 </html>
