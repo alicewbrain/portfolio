@@ -157,10 +157,12 @@ a:hover {
 #wave-canvas {
   position: fixed;
   top: 0; left: 0;
-  width: 100%; height: 100%;
+  width: 100vw; height: 100vh;
   z-index: 0;
   pointer-events: none;
   overflow: visible;
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 /* ── NAV ──────────────────────────────────────────────────────────── */
@@ -284,7 +286,7 @@ a:hover {
 .hero-h1 {
   font-family: var(--head); 
   font-size: clamp(2rem, 3.6vw, 5.04rem);
-  font-weight: 500; line-height: 0.95; letter-spacing: 0;
+  font-weight: 500; line-height: 1.05; letter-spacing: 0;
   color: var(--txt); margin-bottom: 0.32em;
 }
 
@@ -329,6 +331,12 @@ a:hover {
   font-size: 1.125rem; line-height: 1.625; color: var(--txt);
   margin-bottom: 1.5em;
 }
+/* Combine with .body-l to get 18px gray 500-weight paragraph
+   (used for de-emphasised intro paragraphs that still flow with body type) */
+.body-l-grey {
+  font-weight: 500;
+  color: rgb(153,153,153) !important;
+}
 .body-l:last-child { margin-bottom: 0; }
 
 /* ── Video ──────────────────────────────────────────────────────── */
@@ -351,6 +359,7 @@ a:hover {
 /* ── Feature cards ──────────────────────────────────────────────── */
 .cards {
   display: grid; grid-template-columns: 1fr 1fr;
+  grid-auto-rows: 1fr;
   gap: 50px 29px; margin-top: 64px;
   align-items: stretch;
 }
@@ -368,16 +377,11 @@ a:hover {
   color: var(--txt); margin-bottom: 10px;
 }
 .card-body {
-  font-family: var(--body); font-size: 0.97rem;
+  font-family: var(--body); font-size: 1.125rem;
   line-height: 1.625; color: var(--txt);
 }
 
 /* ── Essay intro ─────────────────────────────────────────────────── */
-.essay-lead {
-  font-family: var(--body); font-size: 1rem;
-  font-weight: 400; line-height: 1.4; letter-spacing: 0;
-  color: var(--txt); max-width: none; margin-bottom: 1.5em;
-}
 /* ── Boat grid ──────────────────────────────────────────────────── */
 /* ── Boat section ───────────────────────────────────────────────── */
 .boat-section {
@@ -491,7 +495,7 @@ a:hover {
 .boat-strip {
   display: none;
 }
-.furucombo-link { color: var(--txt); text-decoration: none; font-weight: 600; padding: 0 4px; transition: color .2s; }
+.furucombo-link { color: var(--txt); text-decoration: none; font-weight: 600; padding: 0 4px 0 0; transition: color .2s; }
 .furucombo-link:hover { text-decoration: underline; text-decoration-color: var(--txt); text-underline-offset: 3px; }
 
 /* ── About ──────────────────────────────────────────────────────── */
@@ -514,14 +518,14 @@ a:hover {
 /* ── Source Links ───────────────────────────────────────────────── */
 .source-links { margin-top: 48px; }
 .source-label {
-  font-family: var(--head); font-size: clamp(1.02rem, 2.125vw, 1.445rem) !important; font-weight: 500;
+  font-family: var(--head); font-size: 1.125rem !important; font-weight: 500;
   letter-spacing: -0.00392em; line-height: 1.3;
   color: var(--txt) !important; margin-bottom: 12px;
 }
 .source-list { list-style: none; }
 .source-list li { margin-bottom: 20px; line-height: 1.625; }
 .source-list a {
-  font-family: var(--body); font-size: 1rem; line-height: 1;
+  font-family: var(--body); font-size: 1.125rem; line-height: 1;
   color: var(--txt); text-decoration: none;
   transition: color .2s;
 }
@@ -756,6 +760,91 @@ a:hover {
 }
 .article-section .body-l + .body-l { margin-top: 0; }
 
+/* Article inline subheadings */
+/* Big subheading — same visual style as homepage .card-title */
+.article-lead-h {
+  font-family: var(--head);
+  font-size: clamp(1.375rem, 3vw, 1.625rem);
+  font-weight: 700;
+  letter-spacing: -0.00392em;
+  line-height: 1.3;
+  color: var(--txt);
+  margin: 32px 0 16px;
+}
+/* Mid subheading — same visual style as homepage .source-label */
+.article-mid-h {
+  font-family: var(--head);
+  font-size: clamp(1.02rem, 2.125vw, 1.445rem);
+  font-weight: 700;
+  letter-spacing: -0.00392em;
+  line-height: 1.3;
+  color: var(--txt);
+  margin: 56px 0 14px;
+}
+/* Quiet variant — same size/spacing as article-mid-h, but gray.
+   Used for reflective/rhetorical questions and their answers. */
+.article-mid-h-quiet {
+  font-family: var(--head);
+  font-size: clamp(1.02rem, 2.125vw, 1.445rem);
+  font-weight: 500;
+  letter-spacing: -0.00392em;
+  line-height: 1.3;
+  color: rgb(153,153,153) !important;
+  margin: 84px 0 14px;
+}
+/* When a quiet line follows another quiet line, collapse top margin
+   so consecutive reflective lines read as one continuous thought. */
+.article-mid-h-quiet + .article-mid-h-quiet {
+  margin-top: 8px !important;
+}
+/* The last quiet line in a run: give it a bottom margin matching the
+   group's top margin, so the gap after the group matches the gap before. */
+.article-mid-h-quiet:has(+ :not(.article-mid-h-quiet)),
+.article-mid-h-quiet:last-child,
+.article-mid-h-quiet-dark:last-child,
+.article-mid-h-quiet-dark:has(+ :not(.article-mid-h-quiet, .article-mid-h-quiet-dark)) {
+  margin-bottom: 84px;
+}
+/* Dark variant — same as quiet but with default text color (used for definitive answers
+   in a quiet group where preceding lines are reflective gray). */
+.article-mid-h-quiet-dark {
+  font-family: var(--head);
+  font-size: clamp(1.02rem, 2.125vw, 1.445rem);
+  font-weight: 500;
+  letter-spacing: -0.00392em;
+  line-height: 1.3;
+  color: var(--txt);
+  margin: 84px 0 14px;
+}
+/* When dark follows a quiet (or quiet-dark) line, collapse top margin
+   to keep the group continuous. */
+.article-mid-h-quiet + .article-mid-h-quiet-dark,
+.article-mid-h-quiet-dark + .article-mid-h-quiet-dark {
+  margin-top: 8px !important;
+}
+/* And the inverse: quiet following quiet-dark also stays tight. */
+.article-mid-h-quiet-dark + .article-mid-h-quiet {
+  margin-top: 8px !important;
+}
+
+/* Lead-in sentence — adds extra space ABOVE to separate from previous content,
+   keeps tight bottom margin so the next block (list / answer / em) sits close. */
+.body-l.next-block {
+  margin-top: 3em;
+  margin-bottom: 0.5em;
+}
+
+/* Article list — bullets inside, aligned with body left edge */
+ul.article-list {
+  list-style: disc inside;
+  padding-left: 0;
+  margin: 0 0 1.5em;
+}
+ul.article-list li {
+  padding-left: 0.5em;
+  line-height: 1.625;
+}
+
 /* Sticky right-side TOC */
 .article-toc {
   position: fixed;
@@ -846,10 +935,7 @@ a:hover {
 <div class="nav-overlay" id="nav-overlay"><canvas id="nav-wave-canvas" style="position:fixed;bottom:0;left:0;width:100%;height:60%;pointer-events:none;"></canvas></div>
 <section id="hero">
   <div class="w hero-inner">
-    <h1 class="hero-h1">Making complexity understandable through product design.</h1>
-    <p class="hero-eyebrow">
-      <span>Ex-sole designer at Furucombo who shaped early composable DeFi experiences.</span>
-    </p>
+    <h1 class="hero-h1">Making complexity understandable through product design <span style="color: rgb(153,153,153);">as the ex-sole designer at Furucombo who shaped early composable DeFi experiences.</span></h1>
   </div>
 </section>
 
@@ -860,13 +946,15 @@ a:hover {
   <section id="work" class="sec">
     <div class="w">
       <div class="two-col">
-        <div class="lbl"><p class="sec-label">Design an abstract model</p></div>
+        <div class="lbl"><p class="sec-label">Composable UX</p></div>
         <div>
           <h2 class="h2">Designing Composable DeFi Strategies: Furucombo</h2>
 
-          <p class="body-l">In the Web3, the DeFi protocol <a href="https://furucombo.app" target="_blank" rel="noopener" class="furucombo-link">Furucombo<svg class="ext-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" width="1em" height="1em" fill="currentColor"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h560v-280h80v280q0 33-23.5 56.5T760-120H200Zm188-212-56-56 372-372H560v-80h280v280h-80v-144L388-332Z"/></svg></a> restructures fragmented multi-protocol operations into a visual composable system, allowing complex workflows to be constructed intuitively and executed within a single transaction.</p>
-          <p class="body-l">While DeFi is highly capable, most strategies are still script-based or executed through disconnected transactions. This persists simply because the interaction model has not evolved over the years.</p>
-          <p class="body-l">At Furucombo, which launched in 2020, I approached this problem by turning DeFi operations into composable visualization actions. Each protocol action, such as Swap, Borrow, or Liquidity Provision, is represented as a visualization. Users can connect these actions to construct a strategy, and the system executes the entire sequence as a single transaction on-chain.</p>
+          <p class="body-l body-l-grey" style="margin-bottom: 64px;"><a href="https://furucombo.app" target="_blank" rel="noopener" class="furucombo-link">Furucombo<svg class="ext-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" width="1em" height="1em" fill="currentColor"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h560v-280h80v280q0 33-23.5 56.5T760-120H200Zm188-212-56-56 372-372H560v-80h280v280h-80v-144L388-332Z"/></svg></a> launched in 2020. The platform was built to refactor complex, multi-protocol Web3 operations into a composable, visual system. It packages decentralized finance smart contracts and flash loan into modular "cubes," enabling users to 'combo' multi-action strategies and execute them within a single, atomic transaction.</p>
+
+          <p class="body-l">In the Web3 space, despite the immense power of decentralized finance, most advanced strategies remained script-based or confined to isolated transactions, simply because interaction models had not evolved alongside the underlying protocols. At first glance, this might seem like a superficial interface problem. The core challenge lay in defining a scalable abstract concept that went far beyond designing a standard UI layout.</p>
+
+          <p class="body-l">As the sole product designer, I pioneered this user experience framework from scratch. I had to architect a cognitive mental model capable of supporting an infinite number of strategy combinations while maintaining predictability for the user. To achieve this, I designed a visual system that translates complex technical operations into modular components, collaborating closely with engineers to implement this novel interaction model into a scalable front-end architecture.</p>
 
           <div class="video-wrap">
             <iframe id="furucombo-video"
@@ -875,28 +963,31 @@ a:hover {
           </div>
           <p style="font-size:1rem; color:var(--txt3); margin-top:0.875rem; margin-bottom:60px; line-height:1.5; text-align:center; font-style:italic;">Furucombo showcase by prominent Web3 channel The Defiant</p>
 
-          <p class="body-l">At first glance, this may appear to be a visual interface problem. In reality, the challenge lies much deeper in defining a usable abstraction. The difficulty was not simply designing the interface but shaping an abstraction that could support many possible strategy combinations while remaining predictable for users.</p>
-          <p class="body-l">As the sole designer on the product, I worked closely with engineers to develop this interaction model from the ground up; the engineers and I collaborated to define the structure of the system itself.</p>
-          <p class="body-l">Once this model was established, new behaviors became possible. Complex strategies could be visually composed and understood, allowing them to be shared and reproduced. This empowered non-engineers to construct operations that previously required writing scripts.</p>
-          <p class="body-l">Today, the product has processed tens of billions of dollars in on-chain transaction volume and completed a seed funding round. More importantly, it demonstrates a shift in how DeFi interactions can be structured, moving from isolated operations to composable strategy design.</p>
+          <p class="body-l">This design unlocked entirely new user behavior patterns. It empowered users without coding knowledge to drag and drop multi-protocol actions, including swap, borrow, liquidity provision, and flash loan from platforms like Uniswap, Compound, and Aave among others, into a single transaction flow, formally operationalizing the concept of Composable UX within decentralized finance. As a strategy-driven design product, it shaped early composable decentralized finance experiences, pioneering a completely new track for Web3 aggregators and defining the interaction thinking framework. More importantly, it operationalized the visualization of financial Lego's underlying logic, proving that user interactions can seamlessly transition from isolated transactions to holistic strategy design.</p>
+
+          <p class="body-l">The platform ultimately demonstrated the efficiency of on-chain capital flows, driving over $50 billion in transaction volume since securing seed funding in 2021 from Tier-1 VC firms, including Multicoin Capital, Binance Labs, DeFiance Capital, 1kx, SevenX Ventures, and Aave founder Stani Kulechov. Reflecting this innovation, Furucombo was invited to present these design breakthroughs at EthCC in both 2022 and 2023.</p>
 
           <div class="cards">
             <div class="card">
-              <h3 class="card-title">Scalable Architecture</h3>
-              <p class="card-body">Defined a robust abstraction layer balancing complexity and flexibility. This programmable framework enables seamless expansion, supporting infinite transaction paths with precision and a design system adaptable to any protocol.</p>
+              <h3 class="card-title">Modular Architecture</h3>
+              <p class="card-body">To define a scalable abstract concept, this system standardizes intricate Web3 logic into modular interactive components, refactoring complex technical operations to define a new interaction thinking framework for decentralized finance.</p>
             </div>
             <div class="card">
               <h3 class="card-title">Visual Composability</h3>
-              <p class="card-body">Transforms complex DeFi actions into intuitive Blocks, making strategy building as easy as stacking Legos. Accessible to non-engineers, this lowers the barrier for no-code strategies and shapes early composable DeFi experiences.</p>
+              <p class="card-body">As a strategy-driven design product, this visual system empowers non-technical users without coding knowledge to visually compose, drag, and drop multi-protocol actions into a single, seamless transaction flow.</p>
             </div>
             <div class="card">
-              <h3 class="card-title">Proven Market Impact</h3>
-              <p class="card-body">Since its 2021 seed round backed by Tier 1 VCs including Multicoin Capital, Binance Labs, Defiance Capital, 1kx, SevenX Ventures, and Aave founder Stani Kulechov, the platform has driven billions in volume.</p>
+              <h3 class="card-title">Market Impact</h3>
+              <p class="card-body">Driven over $50 billion in transaction volume since securing seed funding in 2021 from Tier-1 VC firms, the platform has pioneered a completely new track for Web3 aggregators.</p>
+            </div>
+            <div class="card">
+              <h3 class="card-title">Industry Recognition</h3>
+              <p class="card-body">Recognized for shaping early composable DeFi experiences and transitioning interactions to holistic strategy design, Furucombo was invited to present these design breakthroughs at EthCC in both 2022 and 2023.</p>
             </div>
           </div>
 
           <div class="two-col" style="margin-top: clamp(80px, 8vw, 120px);">
-            <div class="lbl"><h3 class="source-label" style="font-size: clamp(1.02rem, 2.125vw, 1.445rem) !important; font-weight: 500 !important; color: rgb(38,38,38) !important;">Source</h3></div>
+            <div class="lbl"><h3 class="source-label" style="font-weight: 500 !important; color: rgb(38,38,38) !important;">Source</h3></div>
             <div>
               <ul class="source-list">
                 <li><a href="https://www.furucombo.app" target="_blank" rel="noopener">Furucombo website<svg class="ext-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" width="1em" height="1em" fill="currentColor"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h560v-280h80v280q0 33-23.5 56.5T760-120H200Zm188-212-56-56 372-372H560v-80h280v280h-80v-144L388-332Z"/></svg></a></li>
@@ -922,7 +1013,7 @@ a:hover {
         <div class="lbl"><p class="sec-label">Essay</p></div>
         <div>
           <h2 class="h2">Designing for Complexity: A Trilogy</h2>
-          <p class="essay-lead" style="margin-bottom: 3em !important;">Design is the interface between human cognition and system complexity. Systems can become increasingly complex, but people cannot.</p>
+          <p class="body-l" style="margin-bottom: 3em !important;">Design is the interface between human cognition and system complexity. Systems can become increasingly complex, but people cannot. This series explores how design helps people understand, navigate, and interact with increasingly complex systems through structure, abstraction, and human-centered interaction models.</p>
 
           <div class="boat-section">
             <!-- Col 1: animation with overlay text, no button below on desktop -->
