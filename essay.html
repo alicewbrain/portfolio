@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#000000">
-<title>aliceWbrain</title>
+<title>Designing for Complexity: A Trilogy — aliceWbrain</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-39 -26 78 54'><g stroke='%23f9f8f7' stroke-width='2.5' stroke-linejoin='round' stroke-linecap='round'><polygon points='-35,-5 1,0 37,-3 0,15' fill='%23aaaaaa'/><polygon points='1,-24 14,9 0,15 -13,8' fill='%23888888'/><polygon points='1,-24 -20,23 0,15' fill='%23cccccc'/><polygon points='1,-24 20,24 0,15' fill='%23b1b1b1'/><polygon points='37,-3 20,24 0,15' fill='%239c9c9c'/><polygon points='-35,-5 0,15 -20,23' fill='%23c5c5c5'/><polygon points='-20,23 20,24 0,15' fill='%23a3a3a3'/></g></svg>">
 <link rel="stylesheet" href="https://use.typekit.net/uwk2xnq.css">
 <link rel="stylesheet" href="https://use.typekit.net/xep3onb.css">
@@ -1201,195 +1201,200 @@ ul.article-list li {
   gtag('config', 'G-1C9E88E70W');
 </script>
 </head>
-<body>
+<body class="essay-page">
 
-<!-- Wave background — identical to portfolio-wave-bg.html -->
+<!-- Wave background — same as portfolio -->
 <canvas id="wave-canvas"></canvas>
 
-<!-- Nav -->
-<nav id="nav">
-  <a href="/" class="nav-logo">aliceWbrain</a>
-  <button class="lang-toggle" id="lang-toggle" aria-label="Switch language" data-en-aria="Switch language" data-zh-aria="切換語言" type="button">
-    <span class="lang-toggle-label">繁中</span>
-  </button>
-</nav>
-<section id="hero">
-  <div class="hero-inner">
-    <h1 class="hero-h1" data-en-html='Making complexity understandable through product design <span style="color: rgb(153,153,153);">as the ex-sole designer at Furucombo who shaped early composable DeFi experiences.</span>' data-zh-html='化繁為簡的產品設計 <span style="color: rgb(153,153,153);">曾任 Furucombo 唯一設計師並開創早期 DeFi 可組合性體驗。</span>'>Making complexity understandable through product design <span style="color: rgb(153,153,153);">as the ex-sole designer at Furucombo who shaped early composable DeFi experiences.</span></h1>
+<!-- Article close button (top-left, floema-style) -->
+<button class="article-close" id="article-close" aria-label="Close article" data-en-aria="Close article" data-zh-aria="關閉文章" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>
+</button>
+
+<!-- Sticky breadcrumb (page-level) -->
+<!-- Article hero -->
+<section class="article-hero">
+  <div class="w">
+    <p class="breadcrumb-date" data-en="May, 2026" data-zh="2026 年 5 月">May, 2026</p>
+    <h1 class="hero-h1" data-en="Designing for Complexity: A Trilogy" data-zh="複雜性設計：三部曲">Designing for Complexity: A Trilogy</h1>
   </div>
 </section>
 
-<!-- White panel — everything below hero -->
-<div id="panel">
-
-  <!-- ② Furucombo -->
-  <section id="work" class="sec">
-    <div class="w">
-      <div class="two-col">
-        <div class="lbl"><p class="sec-label" data-en="Composable UX" data-zh="可組合性 UX">Composable UX</p></div>
-        <div>
-          <h2 class="h2" data-en="Designing Composable DeFi Strategies: Furucombo" data-zh="DeFi 可組合性策略設計：Furucombo">Designing Composable DeFi Strategies: Furucombo</h2>
-
-          <p class="body-l body-l-grey" style="margin-bottom: 64px;" data-en-html="&lt;a href=&quot;https://furucombo.app&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot; class=&quot;furucombo-link&quot;&gt;Furucombo&lt;svg class=&quot;ext-arrow&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 -960 960 960&quot; width=&quot;1em&quot; height=&quot;1em&quot; fill=&quot;currentColor&quot;&gt;&lt;path d=&quot;M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h560v-280h80v280q0 33-23.5 56.5T760-120H200Zm188-212-56-56 372-372H560v-80h280v280h-80v-144L388-332Z&quot;/&gt;&lt;/svg&gt;&lt;/a&gt; launched in 2020. The platform was built to refactor complex, multi-protocol Web3 operations into a composable, visual system. It packages decentralized finance smart contracts and flash loan into modular &quot;cubes,&quot; enabling users to 'combo' multi-action strategies and execute them within a single, atomic transaction." data-zh-html="&lt;a href=&quot;https://furucombo.app&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot; class=&quot;furucombo-link&quot;&gt;Furucombo&lt;svg class=&quot;ext-arrow&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 -960 960 960&quot; width=&quot;1em&quot; height=&quot;1em&quot; fill=&quot;currentColor&quot;&gt;&lt;path d=&quot;M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h560v-280h80v280q0 33-23.5 56.5T760-120H200Zm188-212-56-56 372-372H560v-80h280v280h-80v-144L388-332Z&quot;/&gt;&lt;/svg&gt;&lt;/a&gt; 於 2020 年推出。該平台將 Web3 複雜且跨協議的操作，重構為可組合的視覺化系統。它將去中心化金融的智能合約與閃電貸封裝為模組化的立方體，讓使用者能把多個操作組合成策略，並在原子性交易中一次執行。"><a href="https://furucombo.app" target="_blank" rel="noopener" class="furucombo-link">Furucombo<svg class="ext-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" width="1em" height="1em" fill="currentColor"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h560v-280h80v280q0 33-23.5 56.5T760-120H200Zm188-212-56-56 372-372H560v-80h280v280h-80v-144L388-332Z"/></svg></a> launched in 2020. The platform was built to refactor complex, multi-protocol Web3 operations into a composable, visual system. It packages decentralized finance smart contracts and flash loan into modular "cubes," enabling users to 'combo' multi-action strategies and execute them within a single, atomic transaction.</p>
-
-          <p class="body-l" data-en="In the design context of Furucombo, while Web3 decentralized finance is immensely powerful, most advanced strategies remained script-based or confined to isolated transactions, simply because interaction models had not evolved alongside the underlying protocols. At first glance, this might seem like a superficial interface problem. The core challenge lay in defining a scalable abstract concept that went far beyond designing a standard UI layout." data-zh="在 Furucombo 的設計脈絡中，Web3 去中心化金融雖然功能強大，但多數高階策略操作依然依賴編寫程式腳本執行，或侷限在獨立的一次次交易中。這純粹是因為互動模型沒有隨著底層協議同步演進。表面上似乎只是介面問題；然而，核心挑戰其實在於如何定義出一個具備擴展性的抽象概念，這遠遠超越了一般介面設計畫面配置。">In the design context of Furucombo, while Web3 decentralized finance is immensely powerful, most advanced strategies remained script-based or confined to isolated transactions, simply because interaction models had not evolved alongside the underlying protocols. At first glance, this might seem like a superficial interface problem. The core challenge lay in defining a scalable abstract concept that went far beyond designing a standard UI layout.</p>
-
-          <p class="body-l" data-en="At the time, no product in the market offered multi-protocol strategy composition. Users were forced to manually submit isolated actions protocol by protocol, waiting for on-chain confirmation between each transaction and repeating this time-consuming process until all steps were completed. Until this limitation was broken through a workflow architecture that consolidates multiple protocols and actions into a freely composable, single-click transaction workflow, establishing the true framework for strategy composition." data-zh="直到這些限制被一套工作流程架構打破，這個架構將多協議的多重動作，整合成可任意組合、一鍵發送的單一交易流程，才真正為策略組合確立了實質框架。">At the time, no product in the market offered multi-protocol strategy composition. Users were forced to manually submit isolated actions protocol by protocol, waiting for on-chain confirmation between each transaction and repeating this time-consuming process until all steps were completed. Until this limitation was broken through a workflow architecture that consolidates multiple protocols and actions into a freely composable, single-click transaction workflow, establishing the true framework for strategy composition.</p>
-
-          <p class="body-l" data-en="As the sole product designer, I architected a 0-to-1 UX framework, creating a mental model that balances high flexibility with predictability to support near-infinite strategy combinations and dynamic chained states. I translated complex underlying code logic into a modular visual system, designed real-time status displays and error-guidance mechanisms, and collaborated closely with engineers to implement this novel interaction model into a scalable front-end architecture." data-zh="作為唯一的產品設計師，我從零構建全新的 UX 框架，打造兼具高靈活與可預測性的心智模型，支持近乎無限策略組合與動態連鎖狀態。將程式底層邏輯轉譯為模組化視覺系統，設計即時狀態顯示與錯誤引導機制，並與工程師緊密合作，將這種全新的互動模型實作到可擴展的前端架構中。">As the sole product designer, I architected a 0-to-1 UX framework, creating a mental model that balances high flexibility with predictability to support near-infinite strategy combinations and dynamic chained states. I translated complex underlying code logic into a modular visual system, designed real-time status displays and error-guidance mechanisms, and collaborated closely with engineers to implement this novel interaction model into a scalable front-end architecture.</p>
-
-          <div class="video-wrap">
-            <iframe id="furucombo-video"
-              data-src="https://www.youtube.com/embed/WbEBNymcteA?autoplay=1&mute=1&loop=1&playlist=WbEBNymcteA&controls=1&rel=0"
-              title="Furucombo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-          </div>
-          <p style="font-size:1rem; color:var(--txt3); margin-top:0.875rem; margin-bottom:60px; line-height:1.5; text-align:center; font-style:italic;" data-en="Furucombo showcase by prominent Web3 channel The Defiant" data-zh="知名 Web3 媒體 The Defiant 介紹 Furucombo">Furucombo showcase by prominent Web3 channel The Defiant</p>
-
-          <p class="body-l" data-en="This design unlocked entirely new user behavior patterns. It empowered users without coding knowledge to drag and drop multi-protocol actions, including swap, borrow, liquidity provision, and flash loan from platforms like Uniswap, Compound, and Aave among others, into a single transaction flow, formally operationalizing the concept of Composable UX within decentralized finance." data-zh="這項設計徹底解鎖了全新的使用者行為模式。賦予不具備程式知識的用戶全新能力，讓他們能以拖放的方式，將 Uniswap、Compound 與 Aave 等平台上的跨協議操作（如：兌換、借貸、提供流動性及閃電貸）整合到單一的交易流程中，正式在去中心化金融領域實踐可組合性 UX 的概念。">This design unlocked entirely new user behavior patterns. It empowered users without coding knowledge to drag and drop multi-protocol actions, including swap, borrow, liquidity provision, and flash loan from platforms like Uniswap, Compound, and Aave among others, into a single transaction flow, formally operationalizing the concept of Composable UX within decentralized finance.</p>
-
-          <p class="body-l" data-en="As a strategy-driven design product, it shaped early composable decentralized finance experiences, pioneering a completely new track for Web3 aggregators and defining the interaction thinking framework." data-zh="作為一款以策略驅動為核心設計的產品，它形塑了早期的去中心化金融可組合性體驗，為 Web3 聚合器開創了全新的賽道，並定義了整體的互動思考框架。">As a strategy-driven design product, it shaped early composable decentralized finance experiences, pioneering a completely new track for Web3 aggregators and defining the interaction thinking framework.</p>
-
-          <p class="body-l" data-en="More importantly, it operationalized the visualization of financial Lego's underlying logic, proving that user interactions can seamlessly transition from isolated transactions to holistic strategy design." data-zh="更重要的是，落實金融樂高底層邏輯的視覺化，證明設計能讓使用者的互動，從一次次的單次交易完美過渡到整體的策略。">More importantly, it operationalized the visualization of financial Lego's underlying logic, proving that user interactions can seamlessly transition from isolated transactions to holistic strategy design.</p>
-
-          <p class="body-l" data-en="The platform ultimately demonstrated the efficiency of on-chain capital flows, driving over $50 billion in transaction volume since securing seed funding in 2021 from Tier-1 VC firms, including Multicoin Capital, Binance Labs, DeFiance Capital, 1kx, SevenX Ventures, BTC12 Capital, and Aave founder Stani Kulechov. Reflecting this innovation, the Furucombo team was invited to present these design breakthroughs at EthCC in both 2022 and 2023." data-zh="平台已推動超過 500 億美元的交易量，展現高效率的鏈上資金流動，並在 2021 年獲得頂級風險投資機構 Multicoin Capital、Binance Labs、DeFiance Capital、1kx、SevenX Ventures、BTC12 Capital 以及 Aave 創辦人 Stani Kulechov 的種子輪融資。為了表彰這個創新產品，Furucombo 團隊受邀在 2022 年與 2023 年的 EthCC 區塊鏈大會上，發表這些設計上的突破。">The platform ultimately demonstrated the efficiency of on-chain capital flows, driving over $50 billion in transaction volume since securing seed funding in 2021 from Tier-1 VC firms, including Multicoin Capital, Binance Labs, DeFiance Capital, 1kx, SevenX Ventures, BTC12 Capital, and Aave founder Stani Kulechov. Reflecting this innovation, the Furucombo team was invited to present these design breakthroughs at EthCC in both 2022 and 2023.</p>
-
-          <h3 class="source-label" style="font-weight: 600 !important; color: rgb(38,38,38) !important; margin-top: clamp(80px, 8vw, 120px); margin-bottom: 7px;" data-en="Highlights" data-zh="亮點">Highlights</h3>
-          <div class="cards">
-            <div class="card">
-              <h3 class="card-title" data-en="Modular Architecture" data-zh="模組化架構">Modular Architecture</h3>
-              <p class="card-body" data-en-html="To define a scalable abstract concept, this system standardizes intricate Web3 logic into modular interactive components, refactoring complex technical operations to <strong>define a new interaction thinking framework</strong> for decentralized finance." data-zh-html="定義具備擴展性的抽象概念，標準化複雜的 Web3 邏輯系統為模組化互動組件，透過重構複雜的技術操作，為去中心化金融<strong>定義全新的互動思考框架</strong>。">To define a scalable abstract concept, this system standardizes intricate Web3 logic into modular interactive components, refactoring complex technical operations to <strong>define a new interaction thinking framework</strong> for decentralized finance.</p>
-            </div>
-            <div class="card">
-              <h3 class="card-title" data-en="Visual Composability" data-zh="視覺化可組合性">Visual Composability</h3>
-              <p class="card-body" data-en-html="As a strategy-driven design product, this visual system <strong>empowers non-technical users without coding knowledge</strong> to visually compose, drag, and drop multi-protocol actions into a single, seamless transaction flow." data-zh-html="以策略驅動為核心設計的產品，視覺系統<strong>賦予非技術背景用戶全新能力</strong>，不需要編碼知識即可透過直覺的拖放操作，將跨協議動作整合為單一且流暢的交易流程。">As a strategy-driven design product, this visual system <strong>empowers non-technical users without coding knowledge</strong> to visually compose, drag, and drop multi-protocol actions into a single, seamless transaction flow.</p>
-            </div>
-            <div class="card">
-              <h3 class="card-title" data-en="Market Impact" data-zh="市場影響力">Market Impact</h3>
-              <p class="card-body" data-en-html="Driven over <strong>$50 billion in transaction volume</strong> since securing seed funding in 2021 from <strong>Tier-1 VC firms</strong>, the platform has pioneered a completely <strong>new track for Web3 aggregators</strong>." data-zh-html="自 2021 年獲得<strong>頂級風險投資機構</strong>種子輪融資以來，平台已推動超過<strong> 500 億美元交易量</strong>，開創了<strong> Web3 聚合器新賽道</strong>。">Driven over <strong>$50 billion in transaction volume</strong> since securing seed funding in 2021 from <strong>Tier-1 VC firms</strong>, the platform has pioneered a completely <strong>new track for Web3 aggregators</strong>.</p>
-            </div>
-            <div class="card">
-              <h3 class="card-title" data-en="Industry Recognition" data-zh="業界肯定">Industry Recognition</h3>
-              <p class="card-body" data-en-html="Recognized for shaping early <strong>composable DeFi experiences</strong> and transitioning interactions to holistic strategy design, the Furucombo team was invited to present these design breakthroughs at <strong>EthCC in both 2022 and 2023</strong>." data-zh-html="形塑早期<strong> DeFi 可組合性體驗</strong>，成功將使用者互動過渡為整體策略設計，Furucombo 團隊受邀於<strong> 2022 年與 2023 年的 EthCC 區塊鏈大會</strong>發表這些設計突破。">Recognized for shaping early <strong>composable DeFi experiences</strong> and transitioning interactions to holistic strategy design, the Furucombo team was invited to present these design breakthroughs at <strong>EthCC in both 2022 and 2023</strong>.</p>
-            </div>
-          </div>
-
-          <div class="two-col" style="margin-top: clamp(80px, 8vw, 120px);">
-            <div class="lbl"><h3 class="source-label" style="font-weight: 600 !important; color: rgb(38,38,38) !important;" data-en="Source" data-zh="資料來源">Source</h3></div>
-            <div>
-              <ul class="source-list">
-                <li><a href="https://www.furucombo.app" target="_blank" rel="noopener"><span data-en="Furucombo website" data-zh="Furucombo 網站">Furucombo website</span><svg class="ext-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" width="1em" height="1em" fill="currentColor"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h560v-280h80v280q0 33-23.5 56.5T760-120H200Zm188-212-56-56 372-372H560v-80h280v280h-80v-144L388-332Z"/></svg></a></li>
-                <li><a href="https://x.com/furucombo" target="_blank" rel="noopener"><span data-en="Furucombo X/Twitter" data-zh="Furucombo X / Twitter">Furucombo X/Twitter</span><svg class="ext-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" width="1em" height="1em" fill="currentColor"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h560v-280h80v280q0 33-23.5 56.5T760-120H200Zm188-212-56-56 372-372H560v-80h280v280h-80v-144L388-332Z"/></svg></a></li>
-                <li><a href="https://medium.com/furucombo/announcing-1-85-million-seed-round-9a7a9beb25e7" target="_blank" rel="noopener"><span data-en="Announcing $1.85 Million Seed Round" data-zh="宣布完成 185 萬美元種子輪融資">Announcing $1.85 Million Seed Round</span><svg class="ext-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" width="1em" height="1em" fill="currentColor"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h560v-280h80v280q0 33-23.5 56.5T760-120H200Zm188-212-56-56 372-372H560v-80h280v280h-80v-144L388-332Z"/></svg></a></li>
-                <li><a href="https://www.binance.com/en/blog/all/421499824684901561" target="_blank" rel="noopener"><span data-en="Binance X Invests in Decentralized Finance Aggregator Furucombo" data-zh="幣安旗下 Binance X 投資去中心化金融聚合器 Furucombo">Binance X Invests in Decentralized Finance Aggregator Furucombo</span><svg class="ext-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" width="1em" height="1em" fill="currentColor"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h560v-280h80v280q0 33-23.5 56.5T760-120H200Zm188-212-56-56 372-372H560v-80h280v280h-80v-144L388-332Z"/></svg></a></li>
-                <li><a href="https://youtu.be/0HEudgDEVWs?si=FHw3VHjg-lx4XqdQ" target="_blank" rel="noopener"><span data-en="The Defiant — Create all kinds of DeFi Combinations with Furucombo" data-zh="The Defiant — 以 Furucombo 自由組合 DeFi 策略">The Defiant — Create all kinds of DeFi Combinations with Furucombo</span><svg class="ext-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" width="1em" height="1em" fill="currentColor"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h560v-280h80v280q0 33-23.5 56.5T760-120H200Zm188-212-56-56 372-372H560v-80h280v280h-80v-144L388-332Z"/></svg></a></li>
-                <li><a href="https://www.youtube.com/live/XhhMnWC9ba4?si=s43iWsrHDaA7tE7f" target="_blank" rel="noopener"><span data-en="EthCC[4] Livestream 7 — Chu Hsuan-Ting : How aggregator will bring DeFi to the next 10Billion?" data-zh="EthCC 2021 主題演講 — 聚合器如何將 DeFi 推向未來的一百億使用者">EthCC[4] Livestream 7 — Chu Hsuan-Ting : How aggregator will bring DeFi to the next 10Billion?</span><svg class="ext-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" width="1em" height="1em" fill="currentColor"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h560v-280h80v280q0 33-23.5 56.5T760-120H200Zm188-212-56-56 372-372H560v-80h280v280h-80v-144L388-332Z"/></svg></a></li>
-                <li><a href="https://www.youtube.com/live/lX1HYg8yKKA?si=PsMjaIKVMyXLTCbJ" target="_blank" rel="noopener"><span data-en="EthCC[5] Livestream 3 — Hsuan-Ting Chu : How will composability disrupt Wall Street?" data-zh="EthCC 2022 主題演講 — 可組合性將如何顛覆華爾街">EthCC[5] Livestream 3 — Hsuan-Ting Chu : How will composability disrupt Wall Street?</span><svg class="ext-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" width="1em" height="1em" fill="currentColor"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h560v-280h80v280q0 33-23.5 56.5T760-120H200Zm188-212-56-56 372-372H560v-80h280v280h-80v-144L388-332Z"/></svg></a></li>
-                <li><a href="https://www.bnext.com.tw/article/86369/dinngo-defi-furucombo" target="_blank" rel="noopener"><span data-en="Business Next — Making DeFi as Simple as International Travel: How Furucombo Built the "KKday of Blockchain" in 9 Years" data-zh="數位時代 — 讓 DeFi 交易簡單如出國！一鍵組合金融套裝行程，如何用 9 年造出「區塊鏈上的 KKday」？">Business Next — Making DeFi as Simple as International Travel: How Furucombo Built the "KKday of Blockchain" in 9 Years</span><svg class="ext-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" width="1em" height="1em" fill="currentColor"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h560v-280h80v280q0 33-23.5 56.5T760-120H200Zm188-212-56-56 372-372H560v-80h280v280h-80v-144L388-332Z"/></svg></a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
+<!-- Article cover -->
+<section class="article-cover-section">
+  <div class="w">
+    <div class="article-cover">
+      <canvas id="essay-cover-canvas"></canvas>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ④ Essay -->
-  <section id="essay" class="sec">
-    <div class="w">
-      <div class="two-col">
-        <div class="lbl"><p class="sec-label" data-en="Essay" data-zh="文章">Essay</p></div>
-        <div>
-          <h2 class="h2" data-en="Designing for Complexity: A Trilogy" data-zh="為複雜度設計：三部曲">Designing for Complexity: A Trilogy</h2>
-          <p class="body-l" style="margin-bottom: 3em !important;" data-en="Design is the interface between human cognition and system complexity. Systems can become increasingly complex, but people cannot. This series explores how design helps people understand, navigate, and interact with increasingly complex systems through structure, abstraction, and human-centered interaction models." data-zh="設計，是人類認知與複雜系統之間的介面。系統可以無限擴充，但人的心智能力卻有極限。這個系列記錄了我如何透過結構、抽象化以及以人為本的互動模型，引導使用者理解、駕馭並操作這些日益複雜的系統。">Design is the interface between human cognition and system complexity. Systems can become increasingly complex, but people cannot. This series explores how design helps people understand, navigate, and interact with increasingly complex systems through structure, abstraction, and human-centered interaction models.</p>
+<!-- Article body -->
+<main class="article-body">
+  <div class="w">
 
-          <div class="boat-section">
-            <!-- Col 1: animation with overlay text, no button below on desktop -->
-            <div class="boat-col boat-col-1">
-              <a class="bpanel" href="essay.html">
-                <canvas id="bc1"></canvas>
-                <div class="bpanel-overlay"><span class="bpanel-overlay-part">#1</span><span class="bpanel-title-row"><span data-en="Complexity Management" data-zh="複雜度管理">Complexity Management</span><span class="bpanel-arrow" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" width="20" height="20" fill="currentColor"><path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z"/></svg></span></span></div>
-                
-              </a>
-            </div>
-            <!-- Col 2 -->
-            <div class="boat-col boat-col-2">
-              <a class="bpanel bpanel-desktop" href="essay.html#article-2">
-                <canvas id="bc2"></canvas>
-                <div class="bpanel-overlay"><span class="bpanel-overlay-part">#2</span><span class="bpanel-title-row"><span data-en="Human Interface" data-zh="人的意圖">Human Interface</span><span class="bpanel-arrow" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" width="20" height="20" fill="currentColor"><path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z"/></svg></span></span></div>
-                
-              </a>
-              <a class="boat-strip boat-strip-simple" href="essay.html#article-2"><span class="boat-strip-part">#2</span><span class="boat-strip-title" data-en="Human Interface" data-zh="人的意圖">Human Interface</span><span class="bpanel-arrow" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" width="20" height="20" fill="currentColor"><path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z"/></svg></span></a>
-            </div>
-            <!-- Col 3 -->
-            <div class="boat-col boat-col-3">
-              <a class="bpanel bpanel-desktop" href="essay.html#article-3">
-                <canvas id="bc3"></canvas>
-                <div class="bpanel-overlay"><span class="bpanel-overlay-part">#3</span><span class="bpanel-title-row"><span data-en="Moving Complexity" data-zh="複雜度的移轉">Moving Complexity</span><span class="bpanel-arrow" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" width="20" height="20" fill="currentColor"><path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z"/></svg></span></span></div>
-                
-              </a>
-              <a class="boat-strip boat-strip-simple" href="essay.html#article-3"><span class="boat-strip-part">#3</span><span class="boat-strip-title" data-en="Moving Complexity" data-zh="複雜度的移轉">Moving Complexity</span><span class="bpanel-arrow" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" width="20" height="20" fill="currentColor"><path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z"/></svg></span></a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+    <article id="article-1" class="article-section">
+      <h2 class="h2" data-en="#1 Complexity Management" data-zh="#1 複雜度管理">#1 Complexity Management</h2>
 
-  <!-- ⑤ About -->
-  <section id="about" class="sec" style="padding-top:125px">
-    <div class="w">
-      <div class="two-col">
-        <div class="lbl">
-          <p class="sec-label" data-en="About" data-zh="關於">About</p>
-        </div>
-        <div>
-          <h2 class="h2" data-en="The Brain Behind the Complexity: Alice" data-zh="複雜系統背後的大腦：Alice">The Brain Behind the Complexity: Alice</h2>
-          <div class="about-grid">
-            <div class="about-photo"><img src="pic_alice.jpg" alt="Alice"></div>
-            <div>
-              <p class="body-l" data-en="A Product Designer specializing in complex systems where technical infrastructure meets human workflows. By focusing on interaction models and system-level design, I transform intricate complexity into products that are both accessible and highly functional." data-zh="我是一位專精於複雜系統的產品設計師，擅長在技術基礎架構與人類工作流程的交會處進行設計。透過聚焦於互動模型與系統層級的設計，我將錯綜複雜的架構轉化為兼具易用性與高度功能性的產品。">A Product Designer specializing in complex systems where technical infrastructure meets human workflows. By focusing on interaction models and system-level design, I transform intricate complexity into products that are both accessible and highly functional.</p>
-              <p class="body-l" data-en="Currently open to new opportunities in Taipei and remote." data-zh="目前正積極尋找台北或遠端的工作機會。">Currently open to new opportunities in Taipei and remote.</p>
-              <p class="body-l" data-en="I'm interested in complex systems, AI application, Web3 application, Fintech, infrastructure, developer platforms, and emerging technologies, focusing on products where usability patterns have not yet been established." data-zh="我對複雜系統、AI 應用、Web3 應用、Fintech、基礎架構、開發者平台以及新興技術深感興趣。特別專注於那些尚未建立成熟使用者習慣的全新產品領域。">I'm interested in complex systems, AI application, Web3 application, Fintech, infrastructure, developer platforms, and emerging technologies, focusing on products where usability patterns have not yet been established.</p>
-              <div class="about-socials">
-                <a href="https://www.linkedin.com/in/alice-w-315b6310a" target="_blank" rel="noopener">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5V8h3v11zM6.5 6.732a1.732 1.732 0 110-3.464 1.732 1.732 0 010 3.464zM19 19h-3v-5.604c0-1.337-.027-3.057-1.862-3.057-1.864 0-2.15 1.456-2.15 2.96V19h-3V8h2.879v1.5h.041c.4-.762 1.379-1.564 2.836-1.564 3.036 0 3.596 1.997 3.596 4.594V19z"/></svg>
-                  <span class="about-social-label" data-en="Alice Wu" data-zh="Alice Wu">Alice Wu</span>
-                </a>
-                <a href="https://x.com/alicewbrain" target="_blank" rel="noopener">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"/></svg>
-                  <span class="about-social-label" data-en="@aliceWbrain" data-zh="@aliceWbrain">@aliceWbrain</span>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+      <p class="article-lead-h" data-en="The hardest part of design is often invisible." data-zh="設計最難的部分，往往肉眼看不見">The hardest part of design is often invisible.</p>
 
-</div><!-- /#panel -->
+      <p class="body-l" data-en="Real design challenges are about structure, boundaries, and how a system is understood. As products grow, complexity becomes almost unavoidable. But human understanding does not scale at the same speed as the system itself." data-zh="真正的設計挑戰在於結構、邊界以及如何理解系統。當產品規模開始成長，複雜度幾乎是不可避免的，但人的理解能力，並不會跟著系統一起等比例擴張。">Real design challenges are about structure, boundaries, and how a system is understood. As products grow, complexity becomes almost unavoidable. But human understanding does not scale at the same speed as the system itself.</p>
 
-<!-- ⑥ Footer — outside white panel, wave visible here -->
+      <p class="body-l" data-en="We rarely understand a complex system all at once. Most of the time, understanding is built piece by piece. Cognitive psychologist George A. Miller once suggested that human working memory can only handle a limited amount of information at the same time." data-zh="我們很少能一次完全理解一個複雜的系統，更多時候，理解是局部建立的。認知心理學家喬治·米勒（George A. Miller）曾提出，人類工作記憶一次只能處理有限數量的資訊單位。">We rarely understand a complex system all at once. Most of the time, understanding is built piece by piece. Cognitive psychologist George A. Miller once suggested that human working memory can only handle a limited amount of information at the same time.</p>
+
+      <p class="body-l" data-en="This is how I think about product structure: a system should not require people to track too many dependent conditions at once." data-zh="我對產品結構的看法：系統不應該要求人同時追蹤太多互相依賴的條件。">This is how I think about product structure: a system should not require people to track too many dependent conditions at once.</p>
+
+      <p class="body-l" data-en="Language itself works this way. Sounds become letters. Letters become words. Words become sentences." data-zh="語言本身就是這樣運作的。聲音變成字母，字母變成單字，單字再組成句子。">Language itself works this way. Sounds become letters. Letters become words. Words become sentences.</p>
+
+      <p class="body-l" data-en="Interfaces work in a similar way. People do not instantly understand an entire interface. They first understand smaller parts, then slowly build a mental model of the whole system." data-zh="回到介面來說也是一樣，人不會瞬間理解整個介面，是先理解局部，然後慢慢建構整個系統的心理模型。">Interfaces work in a similar way. People do not instantly understand an entire interface. They first understand smaller parts, then slowly build a mental model of the whole system.</p>
+
+      <p class="article-mid-h" data-en="Navigation software is a good example." data-zh="導航軟體就是一個很好的例子">Navigation software is a good example.</p>
+
+      <p class="body-l" data-en="Before navigation starts, the full map is difficult to understand. You see dense roads, highways, directions, and distances all at once. But once navigation begins, the system no longer asks you to understand the entire city." data-zh="在導航開始之前，整張地圖非常難理解，你會看到密密麻麻的道路、交流道、方向與距離，當導航開始後，系統不會要求你理解整座城市。">Before navigation starts, the full map is difficult to understand. You see dense roads, highways, directions, and distances all at once. But once navigation begins, the system no longer asks you to understand the entire city.</p>
+
+      <p class="body-l next-block" data-en="Instead, it tells you:" data-zh="它只會告訴你：">Instead, it tells you:</p>
+      <ul class="body-l article-list">
+        <li data-en="Turn left in 200 meters" data-zh="200 公尺後左轉">Turn left in 200 meters</li>
+        <li data-en="Go straight" data-zh="直行">Go straight</li>
+        <li data-en="Enter the highway" data-zh="上交流道">Enter the highway</li>
+        <li data-en="Keep right" data-zh="靠右行駛">Keep right</li>
+      </ul>
+
+      <p class="article-mid-h" data-en="The complexity did not disappear. It was reorganized." data-zh="複雜沒有消失，只是被重新組織了">The complexity did not disappear. It was reorganized.</p>
+
+      <p class="body-l" data-en="The system transforms one massive problem into a series of smaller, manageable tasks. What people truly understand is often not the whole system itself, but how smaller parts gradually form the whole." data-zh="系統把巨大的整體問題，轉換成一連串局部且可處理的小任務，人真正能理解的，往往不是整體，而是局部如何逐步形成整體。">The system transforms one massive problem into a series of smaller, manageable tasks. What people truly understand is often not the whole system itself, but how smaller parts gradually form the whole.</p>
+
+      <p class="body-l" data-en="This is why, when designing complex systems, I focus less on features themselves and more on how changes spread through the system." data-zh="這就是為什麼我設計複雜系統時，少關注功能面，更關注改變會如何在系統中傳播。">This is why, when designing complex systems, I focus less on features themselves and more on how changes spread through the system.</p>
+
+      <p class="body-l" data-en="A new feature never affects just one place. It creates new dependencies, new interactions, and new cognitive costs inside the existing structure." data-zh="因為一個新功能並不只影響一個地方，它會與既有系統產生新的依賴、新的互動、新的理解成本。">A new feature never affects just one place. It creates new dependencies, new interactions, and new cognitive costs inside the existing structure.</p>
+
+      <p class="body-l" data-en="When boundaries are unclear, even a small local change can force users to relearn the entire system. I see this as a signal: when a local change starts affecting unrelated areas, the system structure is under pressure." data-zh="當這些邊界不夠清楚時，即使只是局部改動，也可能迫使使用者重新理解整個系統。我把這視為一個訊號：當局部改動開始影響其他部分的時候，代表系統的結構承受壓力。">When boundaries are unclear, even a small local change can force users to relearn the entire system. I see this as a signal: when a local change starts affecting unrelated areas, the system structure is under pressure.</p>
+
+      <p class="body-l next-block" style="font-weight: 600; margin-top: 6em; margin-bottom: 0.5em;" data-en="I often use one question to evaluate product structure:" data-zh="我常用一個問題來評估產品結構：">I often use one question to evaluate product structure:</p>
+
+      <p class="body-l" style="margin-bottom: 2em;" data-en="When one part changes, do people need to rebuild their understanding of the whole system?" data-zh="局部發生改變時，人是否需要重新理解整個系統？">When one part changes, do people need to rebuild their understanding of the whole system?</p>
+
+      <p class="body-l" style="margin-top: 0; margin-bottom: 6em;" data-en-html="&lt;strong&gt;If the answer is yes,&lt;/strong&gt; the system is usually too tightly coupled.&lt;br&gt;
+      &lt;strong&gt;If the answer is no,&lt;/strong&gt; understanding can still grow progressively from local parts." data-zh-html="&lt;strong&gt;答案是「是」，&lt;/strong&gt;通常代表系統之間的耦合太緊。&lt;br&gt;&lt;strong&gt;答案「否」，&lt;/strong&gt;代表理解仍然可以在局部中逐步建立。"><strong>If the answer is yes,</strong> the system is usually too tightly coupled.<br>
+      <strong>If the answer is no,</strong> understanding can still grow progressively from local parts.</p>
+
+      <p class="body-l" data-en="This is not an absolute rule. It is simply a pattern I have repeatedly observed while working on complex products." data-zh="這不是絕對規則，是我反覆在複雜產品中觀察到的事情。">This is not an absolute rule. It is simply a pattern I have repeatedly observed while working on complex products.</p>
+
+      <p class="body-l next-block" data-en="Many people think design is about making things simple. But I believe good design rarely removes complexity completely." data-zh="很多人覺得設計是在讓東西變簡單，但我覺得好的設計很少真的消除複雜，更多時候是在管理複雜。">Many people think design is about making things simple. But I believe good design rarely removes complexity completely.</p>
+
+      <p class="body-l" data-en="Most of the time, design is about managing complexity. Helping people understand, act, and gradually build confidence in a system within the limits of human cognition." data-zh="讓人在有限的認知下，仍然能理解、行動，並逐步建立對系統的掌握感。">Most of the time, design is about managing complexity. Helping people understand, act, and gradually build confidence in a system within the limits of human cognition.</p>
+
+      <p class="body-l" data-en="Good structure does not eliminate complexity. It keeps complexity within a range humans can still understand." data-zh="好的結構不會消除複雜度，它只是把複雜度維持在人類仍然能理解的範圍內。">Good structure does not eliminate complexity. It keeps complexity within a range humans can still understand.</p>
+
+      <p class="body-l next-block" data-en-html="Systems can keep becoming more complex.&lt;br&gt;
+      People cannot." data-zh-html="系統可以越來越複雜。&lt;br&gt;但人不會。">Systems can keep becoming more complex.<br>
+      People cannot.</p>
+    </article>
+
+    <article id="article-2" class="article-section">
+      <h2 class="h2" data-en="#2 Human Interface" data-zh="#2 人的意圖">#2 Human Interface</h2>
+
+      <p class="article-lead-h" data-en="Systems can be complex, but interfaces must be simple." data-zh="系統可以複雜介面必須簡單">Systems can be complex, but interfaces must be simple.</p>
+
+      <p class="body-l" data-en="Product interfaces should align with user intuition. However, complexity is the norm in certain industries and is often taken for granted. The underlying layers of these products usually involve vast amounts of states, rules, and technical constraints. While logical to engineers, they remain incomprehensible to most users." data-zh="產品介面應該服務於用戶的操作直覺，但複雜在某些產業來說是常態，複雜被視為理所當然，這些產品底層通常包含大量狀態、規則與技術限制，對工程師來說是合理的，但對多數使用者而言難以理解。">Product interfaces should align with user intuition. However, complexity is the norm in certain industries and is often taken for granted. The underlying layers of these products usually involve vast amounts of states, rules, and technical constraints. While logical to engineers, they remain incomprehensible to most users.</p>
+
+      <p class="body-l" data-en="Current AI products, for example, are in a phase of powerful yet chaotic infancy. Their underlying capabilities are astonishing, but the steep learning curve for deep usage limits widespread adoption. From a human perspective, this is not a true user experience. What users actually want to do is simple, yet the product forces them to understand how the entire system works first. This is not unprecedented; many complex products suffer from the same issue. Eventually, people accept this complexity as a given, as if the system is naturally meant to be complicated and users must bear the burden. In reality, an overly complex system is merely a reflection of current engineering boundaries." data-zh="像是目前的 AI 產品正處於功能強大卻初始混亂的階段，底層能力驚人，深度使用的門檻限制普及。從人的角度來看，這並不是使用體驗，使用者真正想做的事情其實很簡單，產品卻要求他先理解整個系統運作方式，並非先例，很多複雜產品都相似的問題。最後人們把這種複雜度視為理所當然，彷彿系統本來就這麼複雜，使用者也必須承擔這份複雜，但是系統太複雜其實是目前的呈現邊界狀態。">Current AI products, for example, are in a phase of powerful yet chaotic infancy. Their underlying capabilities are astonishing, but the steep learning curve for deep usage limits widespread adoption. From a human perspective, this is not a true user experience. What users actually want to do is simple, yet the product forces them to understand how the entire system works first. This is not unprecedented; many complex products suffer from the same issue. Eventually, people accept this complexity as a given, as if the system is naturally meant to be complicated and users must bear the burden. In reality, an overly complex system is merely a reflection of current engineering boundaries.</p>
+
+      <p class="body-l" data-en="According to Tesler's Law, every system has an inherent amount of complexity that cannot be removed. The common belief is that design makes things simpler. In reality, design rarely reduces complexity — the system remains complex. What actually changes is how that complexity is redistributed. Good design should find the sweet spot between technical backends and user cognitive loads, ensuring that complexity resides where it is best handled." data-zh="根據泰斯勒定律（Tesler's Law），任何系統都有其固有且無法消除的複雜度。普遍認知是設計把事情變簡單，但設計實際上很少減少複雜，系統依然複雜，真正改變是複雜被重新分配，好的設計應該與技術後端和使用者認知負荷之間找到平衡點，讓複雜停留在更適合承擔它的地方。">According to Tesler's Law, every system has an inherent amount of complexity that cannot be removed. The common belief is that design makes things simpler. In reality, design rarely reduces complexity — the system remains complex. What actually changes is how that complexity is redistributed. Good design should find the sweet spot between technical backends and user cognitive loads, ensuring that complexity resides where it is best handled.</p>
+
+      <p class="body-l next-block" style="margin-top: 6em; font-weight: 600;" data-en="To achieve this goal, I believe we must maintain two bottom lines:" data-zh="在實踐這個目標時，我認為需要守住兩個底線：">To achieve this goal, I believe we must maintain two bottom lines:</p>
+
+      <p class="body-l" data-en-html="&lt;strong&gt;Hide unnecessary processes.&lt;/strong&gt;&lt;br&gt;
+      Under the premise of balancing design and backend technical details, do not force users to manage cognitive loads irrelevant to their intent the moment they enter." data-zh-html="&lt;strong&gt;隱藏非必要的過程&lt;/strong&gt;&lt;br&gt;別讓用戶一進來就得處理與他意圖無關的認知負荷，在設計與後端技術細節的平衡點前提。"><strong>Hide unnecessary processes.</strong><br>
+      Under the premise of balancing design and backend technical details, do not force users to manage cognitive loads irrelevant to their intent the moment they enter.</p>
+
+      <p class="body-l" style="margin-bottom: 6em;" data-en-html="&lt;strong&gt;Retain critical decision points.&lt;/strong&gt;&lt;br&gt;
+      Intent-driven design is by no means a black box. Designers must precisely distinguish between superfluous complexity and essential complexity." data-zh-html="&lt;strong&gt;保留關鍵的決策點&lt;/strong&gt;&lt;br&gt;意圖導向絕非黑箱作業，設計師必須精準地區分出哪些是多餘的複雜，哪些是必要的複雜。"><strong>Retain critical decision points.</strong><br>
+      Intent-driven design is by no means a black box. Designers must precisely distinguish between superfluous complexity and essential complexity.</p>
+
+      <p class="body-l" data-en="In DeFi, for example, while &quot;Approve&quot; is a piece of system language, it represents a critical risk boundary. Good design simplifies operations while ensuring users retain final control over risks, such as slippage, security, and asset authorization. The task of design is to provide progressive disclosure. There is a delicate balance in pursuing intent-driven design: we must not strip away the user's right to know for the sake of extreme simplicity. Those seemingly complex pieces of information are vital foundations for user decision-making." data-zh="例如在 DeFi 中，Approve 雖然是系統語言，卻也是關鍵的風險邊界。好的設計在簡化操作的同時，確保用戶對風險，如：滑點、安全性、資產授權...，仍然保有最終控制權。設計的任務在提供漸進式揭露，在追求意圖導向，有一個微妙的平衡，不能為了極致的簡單，剝奪了使用者的知情權，那些看似複雜的資訊，是使用者做決策時重要的依據。">In DeFi, for example, while "Approve" is a piece of system language, it represents a critical risk boundary. Good design simplifies operations while ensuring users retain final control over risks, such as slippage, security, and asset authorization. The task of design is to provide progressive disclosure. There is a delicate balance in pursuing intent-driven design: we must not strip away the user's right to know for the sake of extreme simplicity. Those seemingly complex pieces of information are vital foundations for user decision-making.</p>
+
+      <p class="article-mid-h" data-en="The Moment Design Drives Mass Adoption" data-zh="設計促成採用擴大的時刻">The Moment Design Drives Mass Adoption</p>
+
+      <p class="body-l" data-en="More than ever, humans need to occupy the decision-making layer, while the system acts as the supporting layer. The defining moments of design are more critical than before. Through an elegant abstraction layer, complex parameters are transformed into intuitive interactions. If a user encounters a failure, the interface must offer transparency and explainability, helping them understand the reason behind the error instead of trapping them in the distrust of a technical black box. A designer's job is not just drawing UIs. Only when designers build better abstraction layers to turn powerful features into intuitive actions can the adoption of AI truly scale." data-zh="比起從前，此時需要讓人類擁有決策層，最終系統是輔助層，而設計的關鍵時刻更勝以往，透過優雅的抽象層，將繁雜參數轉化直覺的互動。如果用戶使用時出現失敗狀況，介面必須具備透明度與可解釋性，讓用戶理解錯誤原因，而非陷入技術黑箱的不信任感中。設計師的工作不只是畫 UI，當設計師能建立更好的抽象層，讓強大功能轉化為直覺的操作，AI 的使用層級才會真正擴大。">More than ever, humans need to occupy the decision-making layer, while the system acts as the supporting layer. The defining moments of design are more critical than before. Through an elegant abstraction layer, complex parameters are transformed into intuitive interactions. If a user encounters a failure, the interface must offer transparency and explainability, helping them understand the reason behind the error instead of trapping them in the distrust of a technical black box. A designer's job is not just drawing UIs. Only when designers build better abstraction layers to turn powerful features into intuitive actions can the adoption of AI truly scale.</p>
+
+      <p class="body-l" data-en="Products should no longer expose complexity; they must establish an interaction model that aligns more closely with human thought." data-zh="產品不再暴露複雜，建立一個更接近人類思考方式的互動模型。">Products should no longer expose complexity; they must establish an interaction model that aligns more closely with human thought.</p>
+
+      <p class="body-l" data-en="Enable people to take action based on their intent, without requiring them to become engineers first." data-zh="讓人可以依照自己的意圖開始行動，而不需要先變成工程師。">Enable people to take action based on their intent, without requiring them to become engineers first.</p>
+    </article>
+
+    <article id="article-3" class="article-section">
+      <h2 class="h2" data-en="#3 Moving Complexity" data-zh="#3 複雜度的移轉">#3 Moving Complexity</h2>
+
+      <p class="article-lead-h" data-en="Good Design Doesn't Make Complexity Vanish" data-zh="好的設計不會讓複雜消失">Good Design Doesn't Make Complexity Vanish</p>
+
+      <p class="body-l" data-en="In reality, complexity can never truly be eliminated from highly complex systems. This holds true for AI systems, developer tools, fintech, and blockchain platforms." data-zh="實際上在高複雜度系統裡，複雜度根本不可能真正被消除，AI systems、Developer tool、金融與區塊鏈系統也是。">In reality, complexity can never truly be eliminated from highly complex systems. This holds true for AI systems, developer tools, fintech, and blockchain platforms.</p>
+
+      <p class="article-mid-h" data-en="The real question is: who should bear the burden of this complexity?" data-zh="真正的問題在於複雜應該由誰承擔？">The real question is: who should bear the burden of this complexity?</p>
+
+      <p class="body-l" data-en="Some products keep complexity inside the system, while others expose it directly to the user. The difference between these two approaches defines the product experience. Some products boast extensive features, powerful capabilities, and cutting-edge systems, yet using them feels exhausting. This exhaustion does not stem from a surplus of features, but because the product dumps its systemic burden straight onto the user." data-zh="有些產品把複雜留在系統裡，有些產品把複雜暴露給使用者，這兩者之間的差異，就是產品體驗的差異。有一些產品功能很多、能力很強、系統也很先進，但使用時卻會感到疲憊，原因不是功能太多，是產品把系統負擔直接丟給使用者。">Some products keep complexity inside the system, while others expose it directly to the user. The difference between these two approaches defines the product experience. Some products boast extensive features, powerful capabilities, and cutting-edge systems, yet using them feels exhausting. This exhaustion does not stem from a surplus of features, but because the product dumps its systemic burden straight onto the user.</p>
+
+      <p class="body-l next-block" data-en="Users are forced to:" data-zh="使用者必須：">Users are forced to:</p>
+      <ul class="body-l article-list">
+        <li data-en="Comprehend workflows" data-zh="理解流程">Comprehend workflows</li>
+        <li data-en="Manage states" data-zh="管理狀態">Manage states</li>
+        <li data-en="Remember dependencies" data-zh="記憶依賴">Remember dependencies</li>
+        <li data-en="Predict system behavior" data-zh="推測系統行為">Predict system behavior</li>
+        <li data-en="Handle exceptions" data-zh="處理例外情況">Handle exceptions</li>
+      </ul>
+
+      <p class="body-l" data-en="This complexity, which rightfully belongs to the system, is shifted onto human cognition. Humans are not wired to sustain a high cognitive load for long periods. This issue has become glaringly obvious in the world of AI agents. You might think a multi-agent system represents a higher, more efficient tier of technology. In truth, it often just converts problems that should have been solved, or problems that should not have existed in the first place, into higher token consumption." data-zh="這些本來適合由系統承擔的複雜，被轉移到人的認知上，人並不擅長長時間維持高強度認知負荷，這件事在 AI agent 世界裡也變得相當明顯，你以為 multi-agent 代表更高級更有效率，只是把原本應該被解決的問題或不用出現的問題，轉移成更多代幣消耗。">This complexity, which rightfully belongs to the system, is shifted onto human cognition. Humans are not wired to sustain a high cognitive load for long periods. This issue has become glaringly obvious in the world of AI agents. You might think a multi-agent system represents a higher, more efficient tier of technology. In truth, it often just converts problems that should have been solved, or problems that should not have existed in the first place, into higher token consumption.</p>
+
+      <p class="body-l next-block" data-en="The system appears more efficient, yet users find themselves:" data-zh="系統看起來更有效率，使用者卻開始：">The system appears more efficient, yet users find themselves:</p>
+      <ul class="body-l article-list">
+        <li data-en="Debugging agents" data-zh="debug agent">Debugging agents</li>
+        <li data-en="Managing context" data-zh="管理 context">Managing context</li>
+        <li data-en="Correcting hallucinations" data-zh="修正 hallucination">Correcting hallucinations</li>
+        <li data-en="Maintaining workflows" data-zh="維護 workflow">Maintaining workflows</li>
+        <li data-en="Understanding dependencies between agents" data-zh="理解 agent 之間的依賴">Understanding dependencies between agents</li>
+      </ul>
+
+      <p class="article-mid-h" data-en="Design in the Era of Hyper Complexity Reclaiming Human Agency Amidst Systemic Complexity" data-zh="在高複雜系統中重建人類的理解與行動力">Design in the Era of Hyper Complexity Reclaiming Human Agency Amidst Systemic Complexity</p>
+
+      <p class="body-l" data-en="A good solution never forces humans to adapt to the tool. Otherwise, what we ultimately master is not how to solve the problem, but merely how to maintain the system. When a tool begins demanding human adaptation, and when the migration of complexity fails, the system's capabilities begin to outpace the limits of human understanding." data-zh="好的解決方案絕對不是讓工具反過來要求人適應它，否則我們最後學會的並非如何解決問題，而僅僅是如何維護系統。工具開始反過來要求人適應它。當工具開始要求人去適應、當複雜移動失敗時，系統的能力便會開始超越人的理解極限。">A good solution never forces humans to adapt to the tool. Otherwise, what we ultimately master is not how to solve the problem, but merely how to maintain the system. When a tool begins demanding human adaptation, and when the migration of complexity fails, the system's capabilities begin to outpace the limits of human understanding.</p>
+
+      <p class="body-l" data-en="Design does not make a system simple. What truly matters is how we position complexity, ensuring that people are not forced to bear it all at once. Good design is not just what it looks like on the surface; it functions like a structure. A sound structure allows complexity to coexist so that the components can be intricate and the system massive, yet the whole remains entirely comprehensible." data-zh="設計，不會讓系統變簡單，真正重要在於如何安排複雜的位置，讓人不需要同時承擔所有複雜，好的設計不只是表面看起來如何，它像一種結構,成立的結構讓複雜存在，局部可以複雜，系統可以龐大，整體仍然能被理解。">Design does not make a system simple. What truly matters is how we position complexity, ensuring that people are not forced to bear it all at once. Good design is not just what it looks like on the surface; it functions like a structure. A sound structure allows complexity to coexist so that the components can be intricate and the system massive, yet the whole remains entirely comprehensible.</p>
+
+      <p class="body-l" data-en="The true value of design lies in building a functioning interface between human cognition and system complexity. As the world becomes increasingly virtual, design that still enables people to understand, act, and genuinely feel becomes all the more precious." data-zh="設計真正的價值，是在人的認知與系統複雜之間，建立一個能運作的介面。當世界變得越來越虛擬時，那些仍然能讓人理解、行動，並真正產生感受的設計，反而越顯珍貴。">The true value of design lies in building a functioning interface between human cognition and system complexity. As the world becomes increasingly virtual, design that still enables people to understand, act, and genuinely feel becomes all the more precious.</p>
+    </article>
+
+  </div>
+</main>
+
+<!-- Right-side TOC (≥1200) -->
+<ul class="article-toc" id="article-toc" aria-label="Table of contents">
+  <li><a href="#article-1" data-target="article-1"><span class="toc-num">#1</span> <span class="toc-label">Complexity Management</span></a></li>
+  <li><a href="#article-2" data-target="article-2"><span class="toc-num">#2</span> <span class="toc-label">Human Interface</span></a></li>
+  <li><a href="#article-3" data-target="article-3"><span class="toc-num">#3</span> <span class="toc-label">Moving Complexity</span></a></li>
+</ul>
+
+<!-- Footer (identical to portfolio.html) -->
 <footer id="footer">
-    <div class="footer-inner">
-      <div style="display: flex; justify-content: space-between; align-items: flex-end;">
-        <div>
-          <p class="footer-cta" style="color: rgb(153,153,153); font-size: 1.25rem; font-weight: 500; margin-bottom: 15px;" data-en="Driven by the deep." data-zh="由深處驅動。">Driven by the deep.</p>
-          <div class="footer-email-wrap" style="position: relative; display: inline-block;">
-            <a href="#contact" class="footer-email" id="contact-email" style="font-family: 'JetBrains Mono', 'Courier New', monospace !important; font-size: 1rem; font-weight: 700;">alicewbrain [at] gmail.com</a>
-            <span class="email-tooltip" id="footer-email-tooltip" data-en="Copy" data-zh="複製">Copy</span>
-          </div>
-        </div>
-        <div style="position: relative; display: inline-block;">
-          <a href="#top" class="back-to-top" id="back-to-top" style="font-family: 'JetBrains Mono', 'Courier New', monospace !important; font-size: 1rem; font-weight: 700;"><span class="back-to-top-text" data-en="Back to top" data-zh="回到頂端">Back to top</span><span class="back-to-top-arrow" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" width="20" height="20" fill="currentColor"><path d="M440-160v-487L216-423l-56-57 320-320 320 320-56 57-224-224v487h-80Z"/></svg></span></a>
+  <div class="footer-inner">
+    <div style="display: flex; justify-content: space-between; align-items: flex-end;">
+      <div>
+        <p class="footer-cta" style="color: rgb(153,153,153); font-size: 1.25rem; font-weight: 500; margin-bottom: 15px;" data-en="Driven by the deep." data-zh="由深處驅動。">Driven by the deep.</p>
+        <div class="footer-email-wrap" style="position: relative; display: inline-block;">
+          <a href="#contact" class="footer-email" id="contact-email" style="font-family: 'JetBrains Mono', 'Courier New', monospace !important; font-size: 1rem; font-weight: 700;">alicewbrain [at] gmail.com</a>
+          <span class="email-tooltip" id="footer-email-tooltip" data-en="Copy" data-zh="複製">Copy</span>
         </div>
       </div>
-      <div class="footer-meta" style="margin-top: 4em;">
-        <p class="footer-copy" style="color: #cfcfcd !important; font-size: 12px; line-height: 1.2;">&#169; 2026 aliceWbrain</p>
-        <p class="footer-disclaimer" style="color: #cfcfcd !important; font-size: 12px; line-height: 1.2;" data-en="This work reflects personal perspectives and design thinking. All examples are based on publicly available information or generalized abstractions. No confidential or proprietary information is disclosed." data-zh="這項作品反映了個人觀點與設計思考。所有範例均基於公開資訊或通用抽象概念，未揭露任何機密或專屬資訊。">This work reflects personal perspectives and design thinking. All examples are based on publicly available information or generalized abstractions. No confidential or proprietary information is disclosed.</p>
+      <div style="position: relative; display: inline-block;">
+        <a href="#top" class="back-to-top" id="back-to-top" style="font-family: 'JetBrains Mono', 'Courier New', monospace !important; font-size: 1rem; font-weight: 700;"><span class="back-to-top-text" data-en="Back to top" data-zh="回到頂端">Back to top</span><span class="back-to-top-arrow" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" width="20" height="20" fill="currentColor"><path d="M440-160v-487L216-423l-56-57 320-320 320 320-56 57-224-224v487h-80Z"/></svg></span></a>
       </div>
     </div>
-  </footer>
+    <div class="footer-meta" style="margin-top: 4em;">
+      <p class="footer-copy" style="color: #cfcfcd !important; font-size: 12px; line-height: 1.2;">&#169; 2026 aliceWbrain</p>
+      <p class="footer-disclaimer" style="color: #cfcfcd !important; font-size: 12px; line-height: 1.2;" data-en="This work reflects personal perspectives and design thinking. All examples are based on publicly available information or generalized abstractions. No confidential or proprietary information is disclosed." data-zh="這項作品反映了個人觀點與設計思考。所有範例均基於公開資訊或通用抽象概念，未揭露任何機密或專屬資訊。">This work reflects personal perspectives and design thinking. All examples are based on publicly available information or generalized abstractions. No confidential or proprietary information is disclosed.</p>
+    </div>
+  </div>
+</footer>
+
 <script>
 // ── NAV OVERLAY WAVE ───────────────────────────────────────────────
 (function () {
