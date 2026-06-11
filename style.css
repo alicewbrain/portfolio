@@ -83,6 +83,7 @@ html:has(body.essay-page) { background: #f9f8f7; }
   position: relative;
   display: inline-block;
   padding-right: 47px; /* 35px arrow + 12px gap */
+  white-space: nowrap;
 }
 .back-to-top-arrow {
   position: absolute;
@@ -96,6 +97,7 @@ html:has(body.essay-page) { background: #f9f8f7; }
   background: rgba(218, 218, 216, 0.75); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
   color: rgb(38,38,38);
   border-radius: 10px;
+  flex-shrink: 0;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease-out;
@@ -215,11 +217,13 @@ a:hover {
 }
 /* When in Chinese mode, the button shows "EN" (Latin chars) — bigger for optical balance with CJK */
 body[data-lang="zh"] .lang-toggle { font-size: 0.875rem; }
-.lang-toggle:hover {
-  background: var(--btn-dark);
-  color: #fff;
-  border-color: transparent;
-  transform: scale(1.05);
+@media (hover: hover) {
+  .lang-toggle:hover {
+    background: var(--btn-dark);
+    color: #fff;
+    border-color: transparent;
+    transform: scale(1.05);
+  }
 }
 .lang-toggle:active { transform: scale(1.0); }
 .lang-toggle-label { display: inline-block; }
@@ -467,20 +471,33 @@ body[data-lang="zh"] .lang-toggle { font-size: 0.875rem; }
   border-radius: 10px;
   height: calc(50vh + 5px);
   transition: transform 0.25s ease-out;
+  -webkit-tap-highlight-color: transparent;
+  /* iOS fix: force GPU compositing so border-radius properly masks canvas during scale */
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
+  clip-path: inset(0 round 10px);
+  -webkit-clip-path: inset(0 round 10px);
+  isolation: isolate;
 }
-.bpanel:hover { 
-  text-decoration: none;
-  transform: scale(1.014);
+@media (hover: hover) {
+  .bpanel:hover { 
+    text-decoration: none;
+    transform: translateZ(0) scale(1.014);
+  }
 }
-.bpanel:active { transform: scale(1.0); }
+.bpanel:active { transform: translateZ(0) scale(1.0); }
 .boat-strip-simple {
   font-family: var(--head); font-size: clamp(1.375rem, 2.5vw, 1.5rem); font-weight: 500;
   letter-spacing: -0.00392em; line-height: 0.95;
   color: var(--txt);
   transition: transform 0.25s ease-out;
+  -webkit-tap-highlight-color: transparent;
 }
-.boat-strip-simple:hover {
-  transform: scale(1.014);
+@media (hover: hover) {
+  .boat-strip-simple:hover {
+    transform: scale(1.014);
+  }
 }
 .boat-strip-simple:active { transform: scale(1.0); }
 .bpanel canvas { position: absolute; inset: 0; width: 100% !important; height: 100% !important; display: block; }
@@ -744,10 +761,9 @@ body[data-lang="zh"] .lang-toggle { font-size: 0.875rem; }
   /* Hide Copy tooltips — mailto opens email app instead */
   #footer-email-tooltip,
   #nav-email-tooltip { display: none; }
-  /* Back to top arrow always visible — reset slide-up offset */
+  /* Back to top arrow always visible on touch */
   .back-to-top-arrow { 
     opacity: 1;
-    transform: translateY(0);
   }
   /* Boat arrows always visible on touch — reset to centered position */
   .boat-strip-simple .boat-arrow,
@@ -792,7 +808,9 @@ body[data-lang="zh"] .lang-toggle { font-size: 0.875rem; }
   .boat-strip-simple .bpanel-arrow {
     position: absolute;
     right: 25px;
-    bottom: 35px;
+    top: 50%;
+    bottom: auto;
+    transform: translateY(-50%);
   }
   .boat-strip-simple .boat-strip-part {
     color: rgba(249,248,247,0.5);
@@ -852,10 +870,12 @@ body[data-lang="zh"] .lang-toggle { font-size: 0.875rem; }
     right: var(--col);
   }
 }
-.article-close:hover {
-  background: rgba(218, 218, 216, 0.75); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-  color: var(--txt);
-  transform: scale(1.05);
+@media (hover: hover) {
+  .article-close:hover {
+    background: rgba(218, 218, 216, 0.75); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    color: var(--txt);
+    transform: scale(1.05);
+  }
 }
 .article-close:active { transform: scale(1.0); }
 .article-close svg {

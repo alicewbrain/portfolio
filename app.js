@@ -496,11 +496,39 @@
     }
   }
 
-  let t0 = null;
+  let lastTs = null;
+  let accT = 0;
+  let scrolling = false;
+  let scrollEndTimer = null;
+  
+  // Pause animation cleanly during touch scroll on mobile
+  // (mobile viewport bar collapse triggers canvas resize, which can blank the canvas mid-frame)
+  if ('ontouchstart' in window) {
+    const onScroll = () => {
+      scrolling = true;
+      if (scrollEndTimer) clearTimeout(scrollEndTimer);
+      scrollEndTimer = setTimeout(() => {
+        scrolling = false;
+        lastTs = null; // reset dt so resumed frame doesn't jump
+      }, 150);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('touchmove', onScroll, { passive: true });
+  }
+  
   function bFrame(ts) {
-    if (!t0) t0 = ts;
-    const t = (ts - t0) / 1000;
-    canvases.forEach((cv, i) => drawPanel(cv, i, t));
+    // During scroll: skip drawing entirely (avoid mid-resize garbage frames)
+    if (scrolling || document.hidden) {
+      requestAnimationFrame(bFrame);
+      return;
+    }
+    if (lastTs === null) lastTs = ts;
+    let dt = (ts - lastTs) / 1000;
+    lastTs = ts;
+    // Cap dt to prevent jumps after long pause
+    if (dt > 0.1) dt = 0.1;
+    accT += dt;
+    canvases.forEach((cv, i) => drawPanel(cv, i, accT));
     requestAnimationFrame(bFrame);
   }
   requestAnimationFrame(bFrame);
@@ -635,7 +663,36 @@
   if (toggle) {
     toggle.addEventListener('click', () => {
       const current = document.body.getAttribute('data-lang') || 'en';
-      applyLang(current === 'en' ? 'zh' : 'en');
+      const newLang = current === 'en' ? 'zh' : 'en';
+      
+      // Find an anchor element in current viewport to preserve scroll position
+      // (DOM heights change between languages, so absolute scrollY is unreliable)
+      const candidates = document.querySelectorAll('h1, h2, h3, p, .bpanel, .boat-strip-simple, .card, li');
+      const vpMid = window.innerHeight / 2;
+      let anchor = null;
+      let anchorOffset = 0;
+      for (const el of candidates) {
+        const rect = el.getBoundingClientRect();
+        // Element intersects viewport
+        if (rect.bottom > 0 && rect.top < window.innerHeight) {
+          // Prefer element closest to viewport top (more stable)
+          if (anchor === null || Math.abs(rect.top) < Math.abs(anchorOffset)) {
+            anchor = el;
+            anchorOffset = rect.top;
+          }
+        }
+      }
+      
+      applyLang(newLang);
+      
+      // Restore: scroll so the anchor element returns to its prior offset from viewport top
+      if (anchor) {
+        requestAnimationFrame(() => {
+          const newRect = anchor.getBoundingClientRect();
+          const delta = newRect.top - anchorOffset;
+          window.scrollBy({ top: delta, behavior: 'instant' });
+        });
+      }
     });
   }
 })();
