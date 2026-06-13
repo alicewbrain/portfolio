@@ -838,25 +838,22 @@
    #2 and #3 are smaller / strip-shaped, so morph distorts visually — they
    instead use the default root fade transition. */
 (function() {
-  // #1 card is the only one without a hash (links to essay.html top = #article-1)
-  // OR ends with #article-1 explicitly
-  const card1 = document.querySelector('.bpanel[href="essay.html"], .bpanel[href="essay.html#article-1"], .boat-strip-simple[href="essay.html"], .boat-strip-simple[href="essay.html#article-1"]');
   const allCards = document.querySelectorAll('.bpanel[href*="essay.html"], .boat-strip-simple[href*="essay.html"]');
   
-  if (card1) {
-    card1.addEventListener('click', () => {
-      // Clear any previously assigned name
-      allCards.forEach(c => { c.style.viewTransitionName = ''; });
-      // Tag #1 so it morphs into the article cover
-      card1.style.viewTransitionName = 'boat-cover';
-    });
+  // #1 card: doesn't link to #article-2 or #article-3 (lang= query param tolerant)
+  function isCard1(card) {
+    const href = card.getAttribute('href') || '';
+    return !href.includes('#article-2') && !href.includes('#article-3');
   }
   
-  // For #2 #3 — explicitly clear viewTransitionName on click (in case of leftover)
   allCards.forEach(card => {
-    if (card === card1) return;
     card.addEventListener('click', () => {
+      // Clear from all cards first
       allCards.forEach(c => { c.style.viewTransitionName = ''; });
+      // Only #1 morphs into cover
+      if (isCard1(card)) {
+        card.style.viewTransitionName = 'boat-cover';
+      }
     });
   });
 })();
@@ -876,8 +873,12 @@
   const hash = refUrl.hash || '#article-1';
   if (hash !== '#article-1') return; // skip morph for #2/#3 — use default fade
   
-  // Tag #1 card so cover morphs back to it
-  const card = document.querySelector('.bpanel[href="essay.html"], .bpanel[href="essay.html#article-1"], .boat-strip-simple[href="essay.html"], .boat-strip-simple[href="essay.html#article-1"]');
+  // Find #1 card (the one not linking to #article-2 or #article-3)
+  const allCards = document.querySelectorAll('.bpanel[href*="essay.html"], .boat-strip-simple[href*="essay.html"]');
+  const card = [...allCards].find(c => {
+    const href = c.getAttribute('href') || '';
+    return !href.includes('#article-2') && !href.includes('#article-3');
+  });
   if (card) {
     card.style.viewTransitionName = 'boat-cover';
     setTimeout(() => { card.style.viewTransitionName = ''; }, 600);
