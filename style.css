@@ -5,6 +5,24 @@ body { overscroll-behavior: none; }
 /* On essay page, html bg matches article bg so any tiny overscroll doesn't expose dark cover */
 html:has(body.essay-page) { background: #f9f8f7; }
 
+/* ── View Transitions API — smooth cross-document page transitions ──── */
+/* Enables auto-fade between portfolio.html ↔ essay.html (Chrome 126+, Safari 18+) */
+@view-transition {
+  navigation: auto;
+}
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.4s;
+  animation-timing-function: ease-out;
+}
+/* Honor reduced motion: instant swap */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 0.01ms;
+  }
+}
+
 /* ── Text wrap optimization (avoid orphan words) ──────────────────── */
 /* Article inline strong: match article-mid-h weight 600 (not browser default 700) */
 .article-body strong, .body-l strong, .card-body strong { font-weight: 600; }
@@ -834,8 +852,8 @@ body[data-lang="zh"] .lang-toggle { font-size: 0.875rem; }
 }
 @media (min-width: 901px) {
   :root {
-    /* ≤1279: 20px固定; 1280-1440: 20→40漸進; ≥1440: 鎖40px */
-    --col:     clamp(20px, calc(12.5vw - 140px), 40px);
+    /* Match tablet/mobile: fixed 20px regardless of viewport size */
+    --col:     20px;
   }
 }
 
@@ -1130,6 +1148,12 @@ ul.article-list li {
   display: none; /* hidden by default */
   /* Available width = space from content right-edge to viewport, minus 20px gap */
   max-width: calc((100vw - 1120px) / 2 - var(--col) - 20px);
+  opacity: 1;
+  transition: opacity 0.3s ease-out;
+}
+.article-toc.is-hidden {
+  opacity: 0;
+  pointer-events: none;
 }
 .article-toc li {
   margin-bottom: 16px;
