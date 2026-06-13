@@ -579,6 +579,19 @@
   const initialHash = window.location.hash.slice(1);
   const initialId = sections.find(s => s.id === initialHash)?.id || sections[0].id;
   setActive(initialId);
+  
+  // Hide TOC when footer enters viewport (so it scrolls away with content)
+  const footer = document.getElementById('footer');
+  if (footer) {
+    const footerObserver = new IntersectionObserver(([entry]) => {
+      toc.classList.toggle('is-hidden', entry.isIntersecting);
+    }, {
+      // Trigger as soon as any part of footer enters viewport
+      rootMargin: '0px 0px 0px 0px',
+      threshold: 0
+    });
+    footerObserver.observe(footer);
+  }
 })();
 
 /* ── Breadcrumb sticky detector ─────────────────────────────────── */
@@ -628,6 +641,17 @@
       const val = el.getAttribute('data-' + lang + '-aria');
       if (val != null) el.setAttribute('aria-label', val);
     });
+    // Swap meta content for SEO/social tags with data-en-content/data-zh-content
+    document.querySelectorAll('meta[data-en-content][data-zh-content]').forEach(el => {
+      const val = el.getAttribute('data-' + lang + '-content');
+      if (val != null) el.setAttribute('content', val);
+    });
+    // Swap document title if it has i18n attrs on a <meta data-page-title>
+    const titleEl = document.querySelector('title[data-en][data-zh]');
+    if (titleEl) {
+      const val = titleEl.getAttribute('data-' + lang);
+      if (val != null) titleEl.textContent = val;
+    }
     // Update button label: show the OTHER language (β design — what you can switch to)
     const labelEl = document.querySelector('.lang-toggle-label');
     if (labelEl) labelEl.textContent = lang === 'en' ? '繁中' : 'EN';
@@ -807,4 +831,41 @@
       track('back_to_top_click');
     });
   });
+})();
+
+/* ── View Transition: boat card → article cover morphing ────────── */
+/* On click, assign view-transition-name to the tapped card so the
+   browser morphs it into the article cover on the next page. */
+(function() {
+  const cards = document.querySelectorAll('.bpanel[href*="essay.html"], .boat-strip-simple[href*="essay.html"]');
+  cards.forEach(card => {
+    card.addEventListener('click', () => {
+      // Clear any previously assigned name (in case of re-clicks)
+      cards.forEach(c => { c.style.viewTransitionName = ''; });
+      // Tag this card so the browser morphs it into the article cover
+      card.style.viewTransitionName = 'boat-cover';
+    });
+  });
+})();
+
+/* When returning from essay.html (back nav), morph article cover back to the right card. */
+(function() {
+  // Only run on portfolio page
+  if (document.body.classList.contains('essay-page')) return;
+  
+  // Check if we came back from essay (via referrer)
+  const cameFromEssay = document.referrer && document.referrer.includes('essay.html');
+  if (!cameFromEssay) return;
+  
+  // Get target article from referrer hash
+  const refUrl = new URL(document.referrer);
+  const hash = refUrl.hash || '#article-1';
+  // Map hash to corresponding card link
+  const card = document.querySelector(`.bpanel[href*="${hash}"], .boat-strip-simple[href*="${hash}"]`)
+            || document.querySelector(`.bpanel[href$="essay.html"]`); // fallback to #1
+  if (card) {
+    card.style.viewTransitionName = 'boat-cover';
+    // Clear after transition completes so it doesn't affect future clicks
+    setTimeout(() => { card.style.viewTransitionName = ''; }, 600);
+  }
 })();

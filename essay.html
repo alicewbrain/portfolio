@@ -24,7 +24,12 @@
 <meta name="twitter:title" content="Designing for Complexity: A Trilogy — aliceWbrain">
 <meta name="twitter:description" content="A three-part essay on how design helps people understand, navigate, and interact with increasingly complex systems through structure, abstraction, and human-centered interaction models.">
 <meta name="twitter:image" content="https://alicewbrain.com/og-image.png">
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-39 -26 78 54'><g stroke='%23f9f8f7' stroke-width='2.5' stroke-linejoin='round' stroke-linecap='round'><polygon points='-35,-5 1,0 37,-3 0,15' fill='%23aaaaaa'/><polygon points='1,-24 14,9 0,15 -13,8' fill='%23888888'/><polygon points='1,-24 -20,23 0,15' fill='%23cccccc'/><polygon points='1,-24 20,24 0,15' fill='%23b1b1b1'/><polygon points='37,-3 20,24 0,15' fill='%239c9c9c'/><polygon points='-35,-5 0,15 -20,23' fill='%23c5c5c5'/><polygon points='-20,23 20,24 0,15' fill='%23a3a3a3'/></g></svg>">
+<!-- Favicons -->
+<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+<link rel="manifest" href="/site.webmanifest" />
 <link rel="stylesheet" href="https://use.typekit.net/uwk2xnq.css">
 <link rel="stylesheet" href="https://use.typekit.net/xep3onb.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -66,7 +71,7 @@
 <!-- Article cover -->
 <section class="article-cover-section">
   <div class="w">
-    <div class="article-cover">
+    <div class="article-cover" style="view-transition-name: boat-cover;">
       <canvas id="essay-cover-canvas"></canvas>
     </div>
   </div>
@@ -206,7 +211,7 @@
   </div>
 </main>
 
-<!-- Right-side TOC (≥1200) -->
+<!-- Right-side TOC (≥1200) — fades out when footer enters viewport -->
 <ul class="article-toc" id="article-toc" aria-label="Table of contents">
   <li><a href="#article-1" data-target="article-1"><span class="toc-num">#1</span> <span class="toc-label" data-en="Manage Complexity" data-zh="管理複雜度">Manage Complexity</span></a></li>
   <li><a href="#article-2" data-target="article-2"><span class="toc-num">#2</span> <span class="toc-label" data-en="Human Interface" data-zh="人的意圖">Human Interface</span></a></li>
