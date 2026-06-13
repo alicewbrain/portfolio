@@ -834,21 +834,35 @@
 })();
 
 /* ── View Transition: boat card → article cover morphing ────────── */
-/* On click, assign view-transition-name to the tapped card so the
-   browser morphs it into the article cover on the next page. */
+/* Only #1 card morphs into article cover (its shape matches the cover region).
+   #2 and #3 are smaller / strip-shaped, so morph distorts visually — they
+   instead use the default root fade transition. */
 (function() {
-  const cards = document.querySelectorAll('.bpanel[href*="essay.html"], .boat-strip-simple[href*="essay.html"]');
-  cards.forEach(card => {
+  // #1 card is the only one without a hash (links to essay.html top = #article-1)
+  // OR ends with #article-1 explicitly
+  const card1 = document.querySelector('.bpanel[href="essay.html"], .bpanel[href="essay.html#article-1"], .boat-strip-simple[href="essay.html"], .boat-strip-simple[href="essay.html#article-1"]');
+  const allCards = document.querySelectorAll('.bpanel[href*="essay.html"], .boat-strip-simple[href*="essay.html"]');
+  
+  if (card1) {
+    card1.addEventListener('click', () => {
+      // Clear any previously assigned name
+      allCards.forEach(c => { c.style.viewTransitionName = ''; });
+      // Tag #1 so it morphs into the article cover
+      card1.style.viewTransitionName = 'boat-cover';
+    });
+  }
+  
+  // For #2 #3 — explicitly clear viewTransitionName on click (in case of leftover)
+  allCards.forEach(card => {
+    if (card === card1) return;
     card.addEventListener('click', () => {
-      // Clear any previously assigned name (in case of re-clicks)
-      cards.forEach(c => { c.style.viewTransitionName = ''; });
-      // Tag this card so the browser morphs it into the article cover
-      card.style.viewTransitionName = 'boat-cover';
+      allCards.forEach(c => { c.style.viewTransitionName = ''; });
     });
   });
 })();
 
-/* When returning from essay.html (back nav), morph article cover back to the right card. */
+/* When returning from essay.html (back nav), morph article cover back to #1 card only.
+   #2 and #3 get the default root fade — their shapes don't match cover well. */
 (function() {
   // Only run on portfolio page
   if (document.body.classList.contains('essay-page')) return;
@@ -857,15 +871,15 @@
   const cameFromEssay = document.referrer && document.referrer.includes('essay.html');
   if (!cameFromEssay) return;
   
-  // Get target article from referrer hash
+  // Only morph if coming back to article-1 (or no hash = #1)
   const refUrl = new URL(document.referrer);
   const hash = refUrl.hash || '#article-1';
-  // Map hash to corresponding card link
-  const card = document.querySelector(`.bpanel[href*="${hash}"], .boat-strip-simple[href*="${hash}"]`)
-            || document.querySelector(`.bpanel[href$="essay.html"]`); // fallback to #1
+  if (hash !== '#article-1') return; // skip morph for #2/#3 — use default fade
+  
+  // Tag #1 card so cover morphs back to it
+  const card = document.querySelector('.bpanel[href="essay.html"], .bpanel[href="essay.html#article-1"], .boat-strip-simple[href="essay.html"], .boat-strip-simple[href="essay.html#article-1"]');
   if (card) {
     card.style.viewTransitionName = 'boat-cover';
-    // Clear after transition completes so it doesn't affect future clicks
     setTimeout(() => { card.style.viewTransitionName = ''; }, 600);
   }
 })();
