@@ -344,7 +344,9 @@
   
   // Decide which set of canvases to drive in this loop
   const canvases = homeCanvases.length ? homeCanvases : [coverCanvas];
-  const CYCLE  = 54;
+  // Homepage: 54s for boat to cross all 3 panels (matches original timing).
+  // Essay cover: shorter cycle so boat doesn't feel slow on wide single canvas.
+  const CYCLE  = homeCanvases.length ? 54 : 32;
 
   function resizeAll() {
     const dpr = window.devicePixelRatio || 1;
@@ -544,9 +546,21 @@
   const sections = [...links].map(a => document.getElementById(a.dataset.target)).filter(Boolean);
   if (!sections.length) return;
 
-  // Smooth scroll on click (the browser default is fine because of html { scroll-behavior: smooth }
-  // but we still preventDefault when JS-driven scroll is desired; keep default for now since
-  // CSS scroll-margin-top handles the offset).
+  // Smooth scroll on click — use replaceState so each TOC click doesn't push
+  // a new history entry (which would force users to press close multiple times).
+  links.forEach(link => {
+    link.addEventListener('click', (e) => {
+      const targetId = link.dataset.target;
+      const target = document.getElementById(targetId);
+      if (!target) return;
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      // Update URL hash silently (no new history entry)
+      try {
+        history.replaceState(null, '', '#' + targetId);
+      } catch (err) { /* ignore */ }
+    });
+  });
 
   // Highlight section currently in viewport
   function setActive(id) {
