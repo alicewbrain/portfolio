@@ -344,9 +344,9 @@
   
   // Decide which set of canvases to drive in this loop
   const canvases = homeCanvases.length ? homeCanvases : [coverCanvas];
-  // Homepage: 54s for boat to cross all 3 panels (matches original timing).
-  // Essay cover: shorter cycle so boat doesn't feel slow on wide single canvas.
-  const CYCLE  = homeCanvases.length ? 54 : 32;
+  // Homepage: 54s for boat to cross all 3 panels (original timing).
+  // Essay cover: shorter cycle so boat reappears more often on the single wide canvas.
+  const CYCLE  = homeCanvases.length ? 54 : 42;
 
   function resizeAll() {
     const dpr = window.devicePixelRatio || 1;
