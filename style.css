@@ -10,15 +10,24 @@ html:has(body.essay-page) { background: #f9f8f7; }
 @view-transition {
   navigation: auto;
 }
+/* Root fade — slower + smoother easing reduces flicker during cross-fade */
 ::view-transition-old(root),
 ::view-transition-new(root) {
-  animation-duration: 0.4s;
-  animation-timing-function: ease-out;
+  animation-duration: 0.55s;
+  animation-timing-function: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+/* Boat cover morph — slightly slower than root fade, matching offmenu-style polish */
+::view-transition-old(boat-cover),
+::view-transition-new(boat-cover) {
+  animation-duration: 0.65s;
+  animation-timing-function: cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 /* Honor reduced motion: instant swap */
 @media (prefers-reduced-motion: reduce) {
   ::view-transition-old(root),
-  ::view-transition-new(root) {
+  ::view-transition-new(root),
+  ::view-transition-old(boat-cover),
+  ::view-transition-new(boat-cover) {
     animation-duration: 0.01ms;
   }
 }

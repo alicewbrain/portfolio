@@ -767,6 +767,12 @@
   const closeBtn = document.getElementById('article-close');
   if (!closeBtn) return;
   function close() {
+    // Temporarily disable smooth scroll so history restoration on the
+    // homepage doesn't animate a long scroll back to where the user was
+    document.documentElement.style.scrollBehavior = 'auto';
+    setTimeout(() => {
+      document.documentElement.style.scrollBehavior = '';
+    }, 100);
     if (window.history.length > 1) {
       history.back();
     } else {
