@@ -497,7 +497,22 @@
   }
 
   let lastTs = null;
+  // On essay page, try to read accT from sessionStorage (set on homepage when #1 card was clicked)
+  // This makes the boat appear in the same position as the source card, no "restart" feel.
   let accT = 0;
+  if (coverCanvas && !homeCanvases.length) {
+    const saved = sessionStorage.getItem('__boatAccT');
+    if (saved) {
+      const t = parseFloat(saved);
+      if (!isNaN(t) && t > 0) {
+        // Add ~1s to account for the view transition duration (so boat keeps moving during morph)
+        accT = t + 1.0;
+        sessionStorage.removeItem('__boatAccT'); // one-shot
+      }
+    }
+  }
+  // Expose accT so external code (e.g. card click handler) can read current animation position
+  window.__getBoatAccT = () => accT;
   let scrolling = false;
   let scrollEndTimer = null;
   
@@ -851,14 +866,14 @@
   });
 })();
 
-/* ── View Transition: boat card → article cover morphing ────────── */
-/* Only #1 card morphs into article cover (its shape matches the cover region).
-   #2 and #3 are smaller / strip-shaped, so morph distorts visually — they
-   instead use the default root fade transition. */
+/* ── View Transition: all boat cards use clean fade ──────────────── */
+/* Cover morph caused boat sprite to scale up grotesquely due to
+   aspect-ratio difference (small card → wide cover). Use root fade only. */
 (function() {
   const allCards = document.querySelectorAll('.bpanel[href*="essay.html"], .boat-strip-simple[href*="essay.html"]');
   
-  // #1 card: doesn't link to #article-2 or #article-3 (lang= query param tolerant)
+  // #1 card detection (for accT save) — even without morph, we want the boat
+  // to keep its phase across pages
   function isCard1(card) {
     const href = card.getAttribute('href') || '';
     return !href.includes('#article-2') && !href.includes('#article-3');
@@ -866,39 +881,17 @@
   
   allCards.forEach(card => {
     card.addEventListener('click', () => {
-      // Clear from all cards first
+      // Clear viewTransitionName from all cards (no morph for any)
       allCards.forEach(c => { c.style.viewTransitionName = ''; });
-      // Only #1 morphs into cover
-      if (isCard1(card)) {
-        card.style.viewTransitionName = 'boat-cover';
+      
+      // Still save boat accT for #1 so essay boat continues from same phase
+      if (isCard1(card) && typeof window.__getBoatAccT === 'function') {
+        try {
+          sessionStorage.setItem('__boatAccT', String(window.__getBoatAccT()));
+        } catch (e) { /* ignore */ }
       }
     });
   });
 })();
 
-/* When returning from essay.html (back nav), morph article cover back to #1 card only.
-   #2 and #3 get the default root fade — their shapes don't match cover well. */
-(function() {
-  // Only run on portfolio page
-  if (document.body.classList.contains('essay-page')) return;
-  
-  // Check if we came back from essay (via referrer)
-  const cameFromEssay = document.referrer && document.referrer.includes('essay.html');
-  if (!cameFromEssay) return;
-  
-  // Only morph if coming back to article-1 (or no hash = #1)
-  const refUrl = new URL(document.referrer);
-  const hash = refUrl.hash || '#article-1';
-  if (hash !== '#article-1') return; // skip morph for #2/#3 — use default fade
-  
-  // Find #1 card (the one not linking to #article-2 or #article-3)
-  const allCards = document.querySelectorAll('.bpanel[href*="essay.html"], .boat-strip-simple[href*="essay.html"]');
-  const card = [...allCards].find(c => {
-    const href = c.getAttribute('href') || '';
-    return !href.includes('#article-2') && !href.includes('#article-3');
-  });
-  if (card) {
-    card.style.viewTransitionName = 'boat-cover';
-    setTimeout(() => { card.style.viewTransitionName = ''; }, 600);
-  }
-})();
+/* No reverse morph — all transitions use clean root fade only */

@@ -5,25 +5,18 @@ body { overscroll-behavior: none; }
 /* On essay page, html bg matches article bg so any tiny overscroll doesn't expose dark cover */
 html:has(body.essay-page) { background: #f9f8f7; }
 
-/* ── View Transitions API — offmenu-style elegant morph ────────── */
+/* ── View Transitions API — clean elegant cross-fade ────────────── */
 @view-transition {
   navigation: auto;
 }
 
-/* Old page exits quickly — clean disappearance (no lingering crossfade) */
+/* Old page exits smoothly */
 ::view-transition-old(root) {
-  animation: fade-out 0.25s ease-in both;
+  animation: fade-out 0.5s ease-in both;
 }
-/* New page enters with slight delay — gives morph time to start cleanly */
+/* New page fades in with slight delay to avoid overlap flicker */
 ::view-transition-new(root) {
-  animation: fade-in 0.5s cubic-bezier(0.22, 0.61, 0.36, 1) 0.3s both;
-}
-
-/* Boat cover morph — slow, expressive, the centerpiece of the transition */
-::view-transition-old(boat-cover),
-::view-transition-new(boat-cover) {
-  animation-duration: 1.1s;
-  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  animation: fade-in 0.9s cubic-bezier(0.22, 0.61, 0.36, 1) 0.3s both;
 }
 
 @keyframes fade-out {
@@ -38,9 +31,7 @@ html:has(body.essay-page) { background: #f9f8f7; }
 /* Honor reduced motion */
 @media (prefers-reduced-motion: reduce) {
   ::view-transition-old(root),
-  ::view-transition-new(root),
-  ::view-transition-old(boat-cover),
-  ::view-transition-new(boat-cover) {
+  ::view-transition-new(root) {
     animation-duration: 0.01ms !important;
     animation-delay: 0s !important;
   }
