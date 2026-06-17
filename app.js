@@ -651,7 +651,7 @@
     return nav.startsWith('zh') ? 'zh' : 'en';
   }
 
-  function applyLang(lang) {
+  function applyLang(lang, persist) {
     document.body.setAttribute('data-lang', lang);
     // Swap text for every [data-en][data-zh] element
     document.querySelectorAll('[data-en][data-zh]').forEach(el => {
@@ -697,8 +697,10 @@
       url.searchParams.set('lang', lang);
       a.setAttribute('href', url.pathname + url.search + url.hash);
     });
-    // Persist
-    try { localStorage.setItem('lang', lang); } catch (e) {}
+    // Persist only on user-initiated changes (not on page-load auto-detect)
+    if (persist) {
+      try { localStorage.setItem('lang', lang); } catch (e) {}
+    }
     // Update URL silently (skip if sandboxed iframe blocks pushState/replaceState)
     try {
       const newUrl = new URL(location.href);
@@ -708,7 +710,7 @@
   }
 
   const initial = detectLang();
-  applyLang(initial);
+  applyLang(initial, false);
 
   const toggle = document.getElementById('lang-toggle');
   if (toggle) {
@@ -734,7 +736,7 @@
         }
       }
       
-      applyLang(newLang);
+      applyLang(newLang, true);
       
       // Restore: scroll so the anchor element returns to its prior offset from viewport top
       if (anchor) {
